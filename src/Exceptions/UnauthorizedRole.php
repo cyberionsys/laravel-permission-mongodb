@@ -6,7 +6,8 @@ namespace Cyberion\Mongodb\Permission\Exceptions;
  * Class UnauthorizedRole
  * @package Cyberion\Mongodb\Permission\Exceptions
  */
-class UnauthorizedRole extends UnauthorizedException {
+class UnauthorizedRole extends UnauthorizedException
+{
     /**
      * UnauthorizedPermission constructor.
      *
@@ -14,7 +15,8 @@ class UnauthorizedRole extends UnauthorizedException {
      * @param string|null $message
      * @param array $requiredRoles
      */
-    public function __construct($statusCode, string $message = null, array $requiredRoles = []) {
+    public function __construct($statusCode, string $message = null, array $requiredRoles = [])
+    {
         parent::__construct($statusCode, $message, $requiredRoles);
     }
 }

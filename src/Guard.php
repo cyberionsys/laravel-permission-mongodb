@@ -10,7 +10,8 @@ use ReflectionException;
  * Class Guard
  * @package Cyberion\Mongodb\Permission
  */
-class Guard {
+class Guard
+{
     /**
      * return collection of (guard_name) property if exist on class or object
      * otherwise will return collection of guards names that exists in config/auth.php.
@@ -20,7 +21,8 @@ class Guard {
      * @throws ReflectionException
      * @return Collection
      */
-    public function getNames($model) : Collection {
+    public function getNames($model) : Collection
+    {
         $guardName = null;
         $class = null;
 
@@ -58,7 +60,8 @@ class Guard {
      * @throws ReflectionException
      * @return string
      */
-    public function getDefaultName($class): string {
+    public function getDefaultName($class): string
+    {
         $default = config('auth.defaults.guard');
         return $this->getNames($class)->first() ?: $default;
     }

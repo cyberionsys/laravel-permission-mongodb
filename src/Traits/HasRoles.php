@@ -14,11 +14,13 @@ use ReflectionException;
  * Trait HasRoles
  * @package Cyberion\Mongodb\Permission\Traits
  */
-trait HasRoles {
+trait HasRoles
+{
     use HasPermissions;
     private $roleClass;
 
-    public static function bootHasRoles() {
+    public static function bootHasRoles()
+    {
         static::deleting(function (Model $model) {
             if (isset($model->forceDeleting) && !$model->forceDeleting) {
                 return;
@@ -28,7 +30,8 @@ trait HasRoles {
         });
     }
 
-    public function getRoleClass() {
+    public function getRoleClass()
+    {
         if ($this->roleClass === null) {
             $this->roleClass = app(PermissionRegistrar::class)->getRoleClass();
         }
@@ -38,7 +41,8 @@ trait HasRoles {
     /**
      * A model may have multiple roles.
      */
-    public function roles() {
+    public function roles()
+    {
         return $this->belongsToMany(config('permission.models.role'));
     }
 
@@ -50,7 +54,8 @@ trait HasRoles {
      *
      * @return Builder
      */
-    public function scopeRole(Builder $query, Role|array|string|Collection $roles): Builder {
+    public function scopeRole(Builder $query, Role|array|string|Collection $roles): Builder
+    {
         $roles = $this->convertToRoleModels($roles);
 
         return $query->whereIn('role_ids', $roles->pluck('_id'));
@@ -63,7 +68,8 @@ trait HasRoles {
      *
      * @return array|Role|string
      */
-    public function assignRole(...$roles): array|Role|string {
+    public function assignRole(...$roles): array|Role|string
+    {
         $roles = \collect($roles)
             ->flatten()
             ->map(function ($role) {
@@ -88,7 +94,8 @@ trait HasRoles {
      *
      * @return array|Role|string
      */
-    public function removeRole(...$roles): array|Role|string {
+    public function removeRole(...$roles): array|Role|string
+    {
         \collect($roles)
             ->flatten()
             ->map(function ($role) {
@@ -110,7 +117,8 @@ trait HasRoles {
      *
      * @return array|Role|string
      */
-    public function syncRoles(...$roles): array|Role|string {
+    public function syncRoles(...$roles): array|Role|string
+    {
         $this->roles()->sync([]);
 
         return $this->assignRole($roles);
@@ -123,7 +131,8 @@ trait HasRoles {
      *
      * @return bool
      */
-    public function hasRole(Role|array|string|Collection $roles): bool {
+    public function hasRole(Role|array|string|Collection $roles): bool
+    {
         if (\is_string($roles) && false !== \strpos($roles, '|')) {
             $roles = \explode('|', $roles);
         }
@@ -146,7 +155,8 @@ trait HasRoles {
      *
      * @return bool
      */
-    public function hasAnyRole(Role|array|string|Collection $roles): bool {
+    public function hasAnyRole(Role|array|string|Collection $roles): bool
+    {
         return $this->hasRole($roles);
     }
 
@@ -157,7 +167,8 @@ trait HasRoles {
      *
      * @return bool
      */
-    public function hasAllRoles(...$roles): bool {
+    public function hasAllRoles(...$roles): bool
+    {
         $helpers = new Helpers();
         $roles = $helpers->flattenArray($roles);
 
@@ -177,7 +188,8 @@ trait HasRoles {
      * @throws ReflectionException
      * @return Role
      */
-    protected function getStoredRole(Role|string $role): Role {
+    protected function getStoredRole(Role|string $role): Role
+    {
         if (\is_string($role)) {
             return $this->getRoleClass()->findByName($role, $this->getDefaultGuardName());
         }
@@ -190,7 +202,8 @@ trait HasRoles {
      *
      * @return Collection
      */
-    public function getRoleNames(): Collection {
+    public function getRoleNames(): Collection
+    {
         return $this->roles()->pluck('name');
     }
 
@@ -201,7 +214,8 @@ trait HasRoles {
      *
      * @return Collection
      */
-    private function convertToRoleModels($roles): Collection {
+    private function convertToRoleModels($roles): Collection
+    {
         if (is_array($roles)) {
             $roles = collect($roles);
         }

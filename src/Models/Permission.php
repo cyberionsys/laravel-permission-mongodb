@@ -19,7 +19,8 @@ use ReflectionException;
  * Class Permission
  * @package Cyberion\Mongodb\Permission\Models
  */
-class Permission extends Model implements PermissionInterface {
+class Permission extends Model implements PermissionInterface
+{
     use HasRoles;
     use RefreshesPermissionCache;
     public $guarded = ['id'];
@@ -32,7 +33,8 @@ class Permission extends Model implements PermissionInterface {
      *
      * @throws ReflectionException
      */
-    public function __construct(array $attributes = []) {
+    public function __construct(array $attributes = [])
+    {
         $attributes['guard_name'] ??= (new Guard())->getDefaultName(static::class);
 
         parent::__construct($attributes);
@@ -51,7 +53,8 @@ class Permission extends Model implements PermissionInterface {
      * @throws ReflectionException
      * @return $this|mixed
      */
-    public static function create(array $attributes = []) {
+    public static function create(array $attributes = [])
+    {
         $helpers = new Helpers();
         $attributes['guard_name'] ??= (new Guard())->getDefaultName(static::class);
 
@@ -77,7 +80,8 @@ class Permission extends Model implements PermissionInterface {
      * @throws ReflectionException
      * @return PermissionInterface
      */
-    public static function findOrCreate(string $name, string $guardName = null): PermissionInterface {
+    public static function findOrCreate(string $name, string $guardName = null): PermissionInterface
+    {
         $guardName ??= (new Guard())->getDefaultName(static::class);
 
         $permission = static::getPermissions()->filter(function ($permission) use ($name, $guardName) {
@@ -95,7 +99,8 @@ class Permission extends Model implements PermissionInterface {
      * A permission can be applied to roles.
      * @return BelongsToMany
      */
-    public function roles(): BelongsToMany {
+    public function roles(): BelongsToMany
+    {
         return $this->belongsToMany(config('permission.models.role'));
     }
 
@@ -103,7 +108,8 @@ class Permission extends Model implements PermissionInterface {
      * A permission belongs to some users of the model associated with its guard.
      * @return BelongsToMany
      */
-    public function users(): BelongsToMany {
+    public function users(): BelongsToMany
+    {
         return $this->belongsToMany($this->helpers->getModelForGuard($this->attributes['guard_name']));
     }
 
@@ -117,7 +123,8 @@ class Permission extends Model implements PermissionInterface {
      * @throws ReflectionException
      * @return PermissionInterface
      */
-    public static function findByName(string $name, string $guardName = null): PermissionInterface {
+    public static function findByName(string $name, string $guardName = null): PermissionInterface
+    {
         $guardName ??= (new Guard())->getDefaultName(static::class);
 
         $permission = static::getPermissions()->filter(function ($permission) use ($name, $guardName) {
@@ -136,7 +143,8 @@ class Permission extends Model implements PermissionInterface {
      * Get the current cached permissions.
      * @return Collection
      */
-    protected static function getPermissions(): Collection {
+    protected static function getPermissions(): Collection
+    {
         return \app(PermissionRegistrar::class)->getPermissions();
     }
 }

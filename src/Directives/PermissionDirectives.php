@@ -8,17 +8,20 @@ use Illuminate\View\Compilers\BladeCompiler;
  * Class PermissionDirectives
  * @package Cyberion\Mongodb\Permission\Directives
  */
-class PermissionDirectives {
+class PermissionDirectives
+{
     private BladeCompiler $bladeCompiler;
 
-    public function __construct(BladeCompiler $bladeCompiler) {
+    public function __construct(BladeCompiler $bladeCompiler)
+    {
         $this->bladeCompiler = $bladeCompiler;
     }
 
     /**
      * Declare role directive
      */
-    public function roleDirective(): void {
+    public function roleDirective(): void
+    {
         $this->bladeCompiler->directive('role', function ($arguments) {
             [$role, $guard] = $this->extractRoleGuard($arguments);
 
@@ -33,7 +36,8 @@ class PermissionDirectives {
     /**
      * Declare hasrole directive
      */
-    public function hasroleDirective(): void {
+    public function hasroleDirective(): void
+    {
         $this->bladeCompiler->directive('hasrole', function ($arguments) {
             [$role, $guard] = $this->extractRoleGuard($arguments);
 
@@ -47,7 +51,8 @@ class PermissionDirectives {
     /**
      * Declare hasanyrole directive
      */
-    public function hasanyroleDirective(): void {
+    public function hasanyroleDirective(): void
+    {
         $this->bladeCompiler->directive('hasanyrole', function ($arguments) {
             [$roles, $guard] = $this->extractRoleGuard($arguments);
 
@@ -61,7 +66,8 @@ class PermissionDirectives {
     /**
      * Declare hasallroles directive
      */
-    public function hasallrolesDirective(): void {
+    public function hasallrolesDirective(): void
+    {
         $this->bladeCompiler->directive('hasallroles', function ($arguments) {
             [$roles, $guard] = $this->extractRoleGuard($arguments);
 
@@ -77,7 +83,8 @@ class PermissionDirectives {
      *
      * @return array
      */
-    private function extractRoleGuard($arguments): array {
+    private function extractRoleGuard($arguments): array
+    {
         $arguments = preg_replace('(\(|\)| )', '', $arguments);
 
         return \explode(',', $arguments . ',');

@@ -9,7 +9,8 @@ use Jenssegers\Mongodb\Relations\BelongsToMany;
  * Interface RoleInterface
  * @package Cyberion\Mongodb\Permission\Contracts
  */
-interface RoleInterface {
+interface RoleInterface
+{
     /**
      * A role may be given various permissions.
      * @return BelongsToMany

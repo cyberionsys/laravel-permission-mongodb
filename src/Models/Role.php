@@ -19,7 +19,8 @@ use ReflectionException;
  * Class Role
  * @package Cyberion\Mongodb\Permission\Models
  */
-class Role extends Model implements RoleInterface {
+class Role extends Model implements RoleInterface
+{
     use HasPermissions;
     use RefreshesPermissionCache;
     public $guarded = ['id'];
@@ -32,7 +33,8 @@ class Role extends Model implements RoleInterface {
      *
      * @throws ReflectionException
      */
-    public function __construct(array $attributes = []) {
+    public function __construct(array $attributes = [])
+    {
         $attributes['guard_name'] ??= (new Guard())->getDefaultName(static::class);
 
         parent::__construct($attributes);
@@ -51,7 +53,8 @@ class Role extends Model implements RoleInterface {
      * @internal param array $attributes§
      *
      */
-    public static function create(array $attributes = []) {
+    public static function create(array $attributes = [])
+    {
         $attributes['guard_name'] ??= (new Guard())->getDefaultName(static::class);
         $helpers = new Helpers();
 
@@ -74,7 +77,8 @@ class Role extends Model implements RoleInterface {
      * @throws ReflectionException
      * @return RoleInterface
      */
-    public static function findOrCreate(string $name, string $guardName = null): RoleInterface {
+    public static function findOrCreate(string $name, string $guardName = null): RoleInterface
+    {
         $guardName ??= (new Guard())->getDefaultName(static::class);
 
         $role = static::where('name', $name)
@@ -98,7 +102,8 @@ class Role extends Model implements RoleInterface {
      * @throws ReflectionException
      * @return RoleInterface
      */
-    public static function findByName(string $name, string $guardName = null): RoleInterface {
+    public static function findByName(string $name, string $guardName = null): RoleInterface
+    {
         $guardName ??= (new Guard())->getDefaultName(static::class);
 
         $role = static::where('name', $name)
@@ -117,7 +122,8 @@ class Role extends Model implements RoleInterface {
      * A role belongs to some users of the model associated with its guard.
      * @return BelongsToMany
      */
-    public function users(): BelongsToMany {
+    public function users(): BelongsToMany
+    {
         return $this->belongsToMany($this->helpers->getModelForGuard($this->attributes['guard_name']));
     }
 
@@ -131,7 +137,8 @@ class Role extends Model implements RoleInterface {
      * @return bool
      *
      */
-    public function hasPermissionTo(string|PermissionInterface $permission): bool {
+    public function hasPermissionTo(string|PermissionInterface $permission): bool
+    {
         if (\is_string($permission)) {
             $permission = $this->getPermissionClass()->findByName($permission, $this->getDefaultGuardName());
         }

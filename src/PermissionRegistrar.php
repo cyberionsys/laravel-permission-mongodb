@@ -13,7 +13,8 @@ use Illuminate\Support\Collection;
  * Class PermissionRegistrar
  * @package Cyberion\Mongodb\Permission
  */
-class PermissionRegistrar {
+class PermissionRegistrar
+{
     protected Gate $gate;
     protected Repository $cache;
     protected string $cacheKey = 'maklad.permission.cache';
@@ -25,7 +26,8 @@ class PermissionRegistrar {
      * @param Gate $gate
      * @param Repository $cache
      */
-    public function __construct(Gate $gate, Repository $cache) {
+    public function __construct(Gate $gate, Repository $cache)
+    {
         $this->gate = $gate;
         $this->cache = $cache;
         $this->permissionClass = config('permission.models.permission');
@@ -37,7 +39,8 @@ class PermissionRegistrar {
      *
      * @return bool
      */
-    public function registerPermissions(): bool {
+    public function registerPermissions(): bool
+    {
         $this->getPermissions()->map(function (Permission $permission) {
             $this->gate->define($permission->name, function (Authorizable $user) use ($permission) {
                 return $user->hasPermissionTo($permission) ?: null;
@@ -50,7 +53,8 @@ class PermissionRegistrar {
     /**
      * Forget cached permission
      */
-    public function forgetCachedPermissions(): void {
+    public function forgetCachedPermissions(): void
+    {
         $this->cache->forget($this->cacheKey);
     }
 
@@ -59,7 +63,8 @@ class PermissionRegistrar {
      *
      * @return Collection
      */
-    public function getPermissions(): Collection {
+    public function getPermissions(): Collection
+    {
         return $this->cache->remember($this->cacheKey, config('permission.cache_expiration_time'), function () {
             return $this->getPermissionClass()->with('roles')->get();
         });
@@ -70,7 +75,8 @@ class PermissionRegistrar {
      *
      * @return Application|mixed
      */
-    public function getPermissionClass(): mixed {
+    public function getPermissionClass(): mixed
+    {
         return app($this->permissionClass);
     }
 
@@ -79,7 +85,8 @@ class PermissionRegistrar {
      *
      * @return Application|mixed
      */
-    public function getRoleClass(): mixed {
+    public function getRoleClass(): mixed
+    {
         return app($this->roleClass);
     }
 }

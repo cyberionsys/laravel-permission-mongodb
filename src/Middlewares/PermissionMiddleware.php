@@ -13,7 +13,8 @@ use Illuminate\Http\Request;
  * Class PermissionMiddleware
  * @package Cyberion\Mongodb\Permission\Middlewares
  */
-class PermissionMiddleware {
+class PermissionMiddleware
+{
     /**
      * @param Request $request
      * @param Closure $next
@@ -22,7 +23,8 @@ class PermissionMiddleware {
      * @throws UnauthorizedException
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, array|string $permission): mixed {
+    public function handle(Request $request, Closure $next, array|string $permission): mixed
+    {
         if (app('auth')->guest()) {
             $helpers = new Helpers();
             throw new UserNotLoggedIn(403, $helpers->getUserNotLoggedINMessage());

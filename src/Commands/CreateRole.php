@@ -8,14 +8,16 @@ use Illuminate\Console\Command;
  * Class CreateRole
  * @package Cyberion\Mongodb\Permission\Commands
  */
-class CreateRole extends Command {
+class CreateRole extends Command
+{
     protected $signature = 'permission:create-role
         {name : The name of the role}
         {guard? : The name of the guard}
         {--permission=* : The name of the permission}';
     protected $description = 'Create a role';
 
-    public function handle(): void {
+    public function handle(): void
+    {
         $roleClass       = \app(\config('permission.models.role'));
 
         $name        = $this->argument('name');

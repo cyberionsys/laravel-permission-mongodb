@@ -14,8 +14,10 @@ use Illuminate\View\Compilers\BladeCompiler;
  * Class PermissionServiceProvider
  * @package Cyberion\Mongodb\Permission
  */
-class PermissionServiceProvider extends ServiceProvider {
-    public function boot() {
+class PermissionServiceProvider extends ServiceProvider
+{
+    public function boot()
+    {
         $helpers = new Helpers();
         if ($helpers->isNotLumen()) {
             $this->publishes([
@@ -47,7 +49,8 @@ class PermissionServiceProvider extends ServiceProvider {
         }
     }
 
-    public function register() {
+    public function register()
+    {
         $helpers = new Helpers();
         if ($helpers->isNotLumen()) {
             $this->mergeConfigFrom(
@@ -59,14 +62,16 @@ class PermissionServiceProvider extends ServiceProvider {
         $this->registerBladeExtensions();
     }
 
-    protected function registerModelBindings() {
+    protected function registerModelBindings()
+    {
         $config = $this->app->config['permission.models'];
 
         $this->app->bind(Permission::class, $config['permission']);
         $this->app->bind(Role::class, $config['role']);
     }
 
-    protected function registerBladeExtensions() {
+    protected function registerBladeExtensions()
+    {
         $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
             $permissionDirectives = new PermissionDirectives($bladeCompiler);
 

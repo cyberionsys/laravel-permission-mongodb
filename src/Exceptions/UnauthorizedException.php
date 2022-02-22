@@ -8,7 +8,8 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  * Class UnauthorizedException
  * @package Cyberion\Mongodb\Permission\Exceptions
  */
-class UnauthorizedException extends HttpException {
+class UnauthorizedException extends HttpException
+{
     private array $requiredRoles = [];
     private array $requiredPermissions = [];
 
@@ -42,7 +43,8 @@ class UnauthorizedException extends HttpException {
      *
      * @return array
      */
-    public function getRequiredRoles(): array {
+    public function getRequiredRoles(): array
+    {
         return $this->requiredRoles;
     }
 
@@ -51,7 +53,8 @@ class UnauthorizedException extends HttpException {
      *
      * @return array
      */
-    public function getRequiredPermissions(): array {
+    public function getRequiredPermissions(): array
+    {
         return $this->requiredPermissions;
     }
 }
