@@ -1,23 +1,23 @@
 <?php
 
-namespace Maklad\Permission\Models;
+namespace Cyberion\Mongodb\Permission\Models;
 
 use Jenssegers\Mongodb\Eloquent\Model;
 use Jenssegers\Mongodb\Relations\BelongsToMany;
-use Maklad\Permission\Contracts\PermissionInterface;
-use Maklad\Permission\Contracts\RoleInterface;
-use Maklad\Permission\Exceptions\GuardDoesNotMatch;
-use Maklad\Permission\Exceptions\RoleAlreadyExists;
-use Maklad\Permission\Exceptions\RoleDoesNotExist;
-use Maklad\Permission\Guard;
-use Maklad\Permission\Helpers;
-use Maklad\Permission\Traits\HasPermissions;
-use Maklad\Permission\Traits\RefreshesPermissionCache;
+use Cyberion\Mongodb\Permission\Contracts\PermissionInterface;
+use Cyberion\Mongodb\Permission\Contracts\RoleInterface;
+use Cyberion\Mongodb\Permission\Exceptions\GuardDoesNotMatch;
+use Cyberion\Mongodb\Permission\Exceptions\RoleAlreadyExists;
+use Cyberion\Mongodb\Permission\Exceptions\RoleDoesNotExist;
+use Cyberion\Mongodb\Permission\Guard;
+use Cyberion\Mongodb\Permission\Helpers;
+use Cyberion\Mongodb\Permission\Traits\HasPermissions;
+use Cyberion\Mongodb\Permission\Traits\RefreshesPermissionCache;
 use ReflectionException;
 
 /**
  * Class Role
- * @package Maklad\Permission\Models
+ * @package Cyberion\Mongodb\Permission\Models
  */
 class Role extends Model implements RoleInterface {
     use HasPermissions;
@@ -70,7 +70,7 @@ class Role extends Model implements RoleInterface {
      * @param string $name
      * @param string|null $guardName
      *
-     * @throws \Maklad\Permission\Exceptions\RoleAlreadyExists
+     * @throws \Cyberion\Mongodb\Permission\Exceptions\RoleAlreadyExists
      * @throws ReflectionException
      * @return RoleInterface
      */

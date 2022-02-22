@@ -1,12 +1,12 @@
 <?php
 
-namespace Maklad\Permission\Directives;
+namespace Cyberion\Mongodb\Permission\Directives;
 
 use Illuminate\View\Compilers\BladeCompiler;
 
 /**
  * Class PermissionDirectives
- * @package Maklad\Permission\Directives
+ * @package Cyberion\Mongodb\Permission\Directives
  */
 class PermissionDirectives {
     private BladeCompiler $bladeCompiler;

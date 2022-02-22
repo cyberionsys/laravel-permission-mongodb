@@ -1,8 +1,8 @@
 <?php
 
-namespace Maklad\Permission\Test;
+namespace Cyberion\Mongodb\Permission\Test;
 
-use Maklad\Permission\Models\Permission;
+use Cyberion\Mongodb\Permission\Models\Permission;
 
 /**
  * @internal

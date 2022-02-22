@@ -1,23 +1,23 @@
 <?php
 
-namespace Maklad\Permission\Models;
+namespace Cyberion\Mongodb\Permission\Models;
 
 use Illuminate\Support\Collection;
 use Jenssegers\Mongodb\Eloquent\Model;
 use Jenssegers\Mongodb\Relations\BelongsToMany;
-use Maklad\Permission\Contracts\PermissionInterface;
-use Maklad\Permission\Exceptions\PermissionAlreadyExists;
-use Maklad\Permission\Exceptions\PermissionDoesNotExist;
-use Maklad\Permission\Guard;
-use Maklad\Permission\Helpers;
-use Maklad\Permission\PermissionRegistrar;
-use Maklad\Permission\Traits\HasRoles;
-use Maklad\Permission\Traits\RefreshesPermissionCache;
+use Cyberion\Mongodb\Permission\Contracts\PermissionInterface;
+use Cyberion\Mongodb\Permission\Exceptions\PermissionAlreadyExists;
+use Cyberion\Mongodb\Permission\Exceptions\PermissionDoesNotExist;
+use Cyberion\Mongodb\Permission\Guard;
+use Cyberion\Mongodb\Permission\Helpers;
+use Cyberion\Mongodb\Permission\PermissionRegistrar;
+use Cyberion\Mongodb\Permission\Traits\HasRoles;
+use Cyberion\Mongodb\Permission\Traits\RefreshesPermissionCache;
 use ReflectionException;
 
 /**
  * Class Permission
- * @package Maklad\Permission\Models
+ * @package Cyberion\Mongodb\Permission\Models
  */
 class Permission extends Model implements PermissionInterface {
     use HasRoles;
@@ -47,7 +47,7 @@ class Permission extends Model implements PermissionInterface {
      *
      * @param array $attributes
      *
-     * @throws \Maklad\Permission\Exceptions\PermissionAlreadyExists
+     * @throws \Cyberion\Mongodb\Permission\Exceptions\PermissionAlreadyExists
      * @throws ReflectionException
      * @return $this|mixed
      */
@@ -73,7 +73,7 @@ class Permission extends Model implements PermissionInterface {
      * @param string $name
      * @param string|null $guardName
      *
-     * @throws \Maklad\Permission\Exceptions\PermissionAlreadyExists
+     * @throws \Cyberion\Mongodb\Permission\Exceptions\PermissionAlreadyExists
      * @throws ReflectionException
      * @return PermissionInterface
      */

@@ -1,10 +1,10 @@
 <?php
 
-namespace Maklad\Permission\Traits;
+namespace Cyberion\Mongodb\Permission\Traits;
 
 /**
  * Trait RefreshesPermissionCache
- * @package Maklad\Permission\Traits
+ * @package Cyberion\Mongodb\Permission\Traits
  */
 trait RefreshesPermissionCache {
     public static function bootRefreshesPermissionCache() {

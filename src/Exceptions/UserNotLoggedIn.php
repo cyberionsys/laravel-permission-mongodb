@@ -1,10 +1,10 @@
 <?php
 
-namespace Maklad\Permission\Exceptions;
+namespace Cyberion\Mongodb\Permission\Exceptions;
 
 /**
  * Class UserNotLoggedIn
- * @package Maklad\Permission\Exceptions
+ * @package Cyberion\Mongodb\Permission\Exceptions
  */
 class UserNotLoggedIn extends UnauthorizedException {
 }

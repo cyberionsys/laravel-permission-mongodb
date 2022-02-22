@@ -1,10 +1,10 @@
 <?php
 
-namespace Maklad\Permission\Exceptions;
+namespace Cyberion\Mongodb\Permission\Exceptions;
 
 /**
  * Class RoleDoesNotExist
- * @package Maklad\Permission\Exceptions
+ * @package Cyberion\Mongodb\Permission\Exceptions
  */
 class RoleDoesNotExist extends MakladException {
 }

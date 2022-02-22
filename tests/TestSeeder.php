@@ -1,11 +1,11 @@
 <?php
 
-namespace Maklad\Permission\Test;
+namespace Cyberion\Mongodb\Permission\Test;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Foundation\Application;
-use Maklad\Permission\Models\Permission;
-use Maklad\Permission\Models\Role;
+use Cyberion\Mongodb\Permission\Models\Permission;
+use Cyberion\Mongodb\Permission\Models\Role;
 
 class TestSeeder extends Seeder {
     private Application $app;

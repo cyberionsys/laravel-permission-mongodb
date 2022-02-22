@@ -1,13 +1,13 @@
 <?php
 
-namespace Maklad\Permission\Contracts;
+namespace Cyberion\Mongodb\Permission\Contracts;
 
 use Jenssegers\Mongodb\Relations\BelongsToMany;
-use Maklad\Permission\Exceptions\RoleDoesNotExist;
+use Cyberion\Mongodb\Permission\Exceptions\RoleDoesNotExist;
 
 /**
  * Interface RoleInterface
- * @package Maklad\Permission\Contracts
+ * @package Cyberion\Mongodb\Permission\Contracts
  */
 interface RoleInterface {
     /**

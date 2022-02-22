@@ -1,16 +1,16 @@
 <?php
 
-namespace Maklad\Permission\Middlewares;
+namespace Cyberion\Mongodb\Permission\Middlewares;
 
 use Closure;
 use Illuminate\Http\Request;
-use Maklad\Permission\Exceptions\UnauthorizedRole;
-use Maklad\Permission\Exceptions\UserNotLoggedIn;
-use Maklad\Permission\Helpers;
+use Cyberion\Mongodb\Permission\Exceptions\UnauthorizedRole;
+use Cyberion\Mongodb\Permission\Exceptions\UserNotLoggedIn;
+use Cyberion\Mongodb\Permission\Helpers;
 
 /**
  * Class RoleMiddleware
- * @package Maklad\Permission\Middlewares
+ * @package Cyberion\Mongodb\Permission\Middlewares
  */
 class RoleMiddleware {
     /**
@@ -18,7 +18,7 @@ class RoleMiddleware {
      * @param Closure $next
      * @param array|string $role
      *
-     * @throws \Maklad\Permission\Exceptions\UnauthorizedException
+     * @throws \Cyberion\Mongodb\Permission\Exceptions\UnauthorizedException
      * @return mixed
      */
     public function handle(Request $request, Closure $next, array|string $role): mixed {

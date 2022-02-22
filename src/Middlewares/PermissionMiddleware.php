@@ -1,17 +1,17 @@
 <?php
 
-namespace Maklad\Permission\Middlewares;
+namespace Cyberion\Mongodb\Permission\Middlewares;
 
 use Closure;
 use Illuminate\Http\Request;
-use Maklad\Permission\Exceptions\UnauthorizedException;
-use Maklad\Permission\Exceptions\UnauthorizedPermission;
-use Maklad\Permission\Exceptions\UserNotLoggedIn;
-use Maklad\Permission\Helpers;
+use Cyberion\Mongodb\Permission\Exceptions\UnauthorizedException;
+use Cyberion\Mongodb\Permission\Exceptions\UnauthorizedPermission;
+use Cyberion\Mongodb\Permission\Exceptions\UserNotLoggedIn;
+use Cyberion\Mongodb\Permission\Helpers;
 
 /**
  * Class PermissionMiddleware
- * @package Maklad\Permission\Middlewares
+ * @package Cyberion\Mongodb\Permission\Middlewares
  */
 class PermissionMiddleware {
     /**

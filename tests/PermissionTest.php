@@ -1,9 +1,9 @@
 <?php
 
-namespace Maklad\Permission\Test;
+namespace Cyberion\Mongodb\Permission\Test;
 
-use Maklad\Permission\Exceptions\PermissionAlreadyExists;
-use Maklad\Permission\Models\Permission;
+use Cyberion\Mongodb\Permission\Exceptions\PermissionAlreadyExists;
+use Cyberion\Mongodb\Permission\Models\Permission;
 use Monolog\Logger;
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Maklad\Permission\Test;
+namespace Cyberion\Mongodb\Permission\Test;
 
 use Illuminate\Contracts\Auth\Access\Gate;
 

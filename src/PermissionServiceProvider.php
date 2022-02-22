@@ -1,18 +1,18 @@
 <?php
 
-namespace Maklad\Permission;
+namespace Cyberion\Mongodb\Permission;
 
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
-use Maklad\Permission\Contracts\PermissionInterface as Permission;
-use Maklad\Permission\Contracts\RoleInterface as Role;
-use Maklad\Permission\Directives\PermissionDirectives;
+use Cyberion\Mongodb\Permission\Contracts\PermissionInterface as Permission;
+use Cyberion\Mongodb\Permission\Contracts\RoleInterface as Role;
+use Cyberion\Mongodb\Permission\Directives\PermissionDirectives;
 
 /**
  * Class PermissionServiceProvider
- * @package Maklad\Permission
+ * @package Cyberion\Mongodb\Permission
  */
 class PermissionServiceProvider extends ServiceProvider {
     public function boot() {

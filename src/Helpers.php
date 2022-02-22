@@ -1,12 +1,12 @@
 <?php
 
-namespace Maklad\Permission;
+namespace Cyberion\Mongodb\Permission;
 
 use Illuminate\Support\Collection;
 
 /**
  * Class Helpers
- * @package Maklad\Permission
+ * @package Cyberion\Mongodb\Permission
  */
 class Helpers {
     /**

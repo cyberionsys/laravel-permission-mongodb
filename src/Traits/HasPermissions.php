@@ -1,22 +1,22 @@
 <?php
 
-namespace Maklad\Permission\Traits;
+namespace Cyberion\Mongodb\Permission\Traits;
 
 use Illuminate\Support\Collection;
 use Jenssegers\Mongodb\Eloquent\Builder;
 use Jenssegers\Mongodb\Eloquent\Model;
 use Jenssegers\Mongodb\Relations\BelongsToMany;
-use Maklad\Permission\Contracts\PermissionInterface as Permission;
-use Maklad\Permission\Exceptions\GuardDoesNotMatch;
-use Maklad\Permission\Guard;
-use Maklad\Permission\Helpers;
-use Maklad\Permission\Models\Role;
-use Maklad\Permission\PermissionRegistrar;
+use Cyberion\Mongodb\Permission\Contracts\PermissionInterface as Permission;
+use Cyberion\Mongodb\Permission\Exceptions\GuardDoesNotMatch;
+use Cyberion\Mongodb\Permission\Guard;
+use Cyberion\Mongodb\Permission\Helpers;
+use Cyberion\Mongodb\Permission\Models\Role;
+use Cyberion\Mongodb\Permission\PermissionRegistrar;
 use ReflectionException;
 
 /**
  * Trait HasPermissions
- * @package Maklad\Permission\Traits
+ * @package Cyberion\Mongodb\Permission\Traits
  */
 trait HasPermissions {
     private $permissionClass;
@@ -91,7 +91,7 @@ trait HasPermissions {
      *
      * @param string|array|Permission|\Illuminate\Support\Collection $permissions
      *
-     * @throws \Maklad\Permission\Exceptions\GuardDoesNotMatch
+     * @throws \Cyberion\Mongodb\Permission\Exceptions\GuardDoesNotMatch
      * @return $this
      */
     public function revokePermissionTo(...$permissions): self {
@@ -312,7 +312,7 @@ trait HasPermissions {
      * Scope the model query to certain permissions only.
      *
      * @param Builder $query
-     * @param array|string|\Maklad\Permission\Contracts\PermissionInterface|Collection $permissions
+     * @param array|string|\Cyberion\Mongodb\Permission\Contracts\PermissionInterface|Collection $permissions
      *
      * @return Builder
      */

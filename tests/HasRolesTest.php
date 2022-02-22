@@ -1,10 +1,10 @@
 <?php
 
-namespace Maklad\Permission\Test;
+namespace Cyberion\Mongodb\Permission\Test;
 
-use Maklad\Permission\Exceptions\GuardDoesNotMatch;
-use Maklad\Permission\Exceptions\RoleDoesNotExist;
-use Maklad\Permission\Models\Role;
+use Cyberion\Mongodb\Permission\Exceptions\GuardDoesNotMatch;
+use Cyberion\Mongodb\Permission\Exceptions\RoleDoesNotExist;
+use Cyberion\Mongodb\Permission\Models\Role;
 use Monolog\Logger;
 
 /**

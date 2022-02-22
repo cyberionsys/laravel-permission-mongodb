@@ -1,13 +1,13 @@
 <?php
 
-namespace Maklad\Permission\Exceptions;
+namespace Cyberion\Mongodb\Permission\Exceptions;
 
 use InvalidArgumentException;
 use Throwable;
 
 /**
  * Class MakladException
- * @package Maklad\Permission\Exceptions
+ * @package Cyberion\Mongodb\Permission\Exceptions
  */
 class MakladException extends InvalidArgumentException {
     /**

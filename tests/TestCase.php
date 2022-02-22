@@ -1,15 +1,15 @@
 <?php
 
-namespace Maklad\Permission\Test;
+namespace Cyberion\Mongodb\Permission\Test;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Jenssegers\Mongodb\MongodbServiceProvider;
-use Maklad\Permission\Helpers;
-use Maklad\Permission\Models\Permission;
-use Maklad\Permission\Models\Role;
-use Maklad\Permission\PermissionRegistrar;
-use Maklad\Permission\PermissionServiceProvider;
+use Cyberion\Mongodb\Permission\Helpers;
+use Cyberion\Mongodb\Permission\Models\Permission;
+use Cyberion\Mongodb\Permission\Models\Role;
+use Cyberion\Mongodb\Permission\PermissionRegistrar;
+use Cyberion\Mongodb\Permission\PermissionServiceProvider;
 use Monolog\Handler\TestHandler;
 use Orchestra\Testbench\TestCase as Orchestra;
 

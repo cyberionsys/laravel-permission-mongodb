@@ -1,6 +1,6 @@
 <?php
 
-namespace Maklad\Permission;
+namespace Cyberion\Mongodb\Permission;
 
 use Illuminate\Support\Collection;
 use ReflectionClass;
@@ -8,7 +8,7 @@ use ReflectionException;
 
 /**
  * Class Guard
- * @package Maklad\Permission
+ * @package Cyberion\Mongodb\Permission
  */
 class Guard {
     /**

@@ -1,10 +1,10 @@
 <?php
 
-namespace Maklad\Permission\Test;
+namespace Cyberion\Mongodb\Permission\Test;
 
 use Artisan;
-use Maklad\Permission\Models\Permission;
-use Maklad\Permission\Models\Role;
+use Cyberion\Mongodb\Permission\Models\Permission;
+use Cyberion\Mongodb\Permission\Models\Role;
 
 /**
  * @internal

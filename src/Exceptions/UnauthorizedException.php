@@ -1,12 +1,12 @@
 <?php
 
-namespace Maklad\Permission\Exceptions;
+namespace Cyberion\Mongodb\Permission\Exceptions;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Class UnauthorizedException
- * @package Maklad\Permission\Exceptions
+ * @package Cyberion\Mongodb\Permission\Exceptions
  */
 class UnauthorizedException extends HttpException {
     private array $requiredRoles = [];

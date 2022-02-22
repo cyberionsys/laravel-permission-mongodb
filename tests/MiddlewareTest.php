@@ -1,13 +1,13 @@
 <?php
 
-namespace Maklad\Permission\Test;
+namespace Cyberion\Mongodb\Permission\Test;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Maklad\Permission\Exceptions\UnauthorizedException;
-use Maklad\Permission\Middlewares\PermissionMiddleware;
-use Maklad\Permission\Middlewares\RoleMiddleware;
+use Cyberion\Mongodb\Permission\Exceptions\UnauthorizedException;
+use Cyberion\Mongodb\Permission\Middlewares\PermissionMiddleware;
+use Cyberion\Mongodb\Permission\Middlewares\RoleMiddleware;
 use Monolog\Logger;
 
 /**

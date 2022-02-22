@@ -1,11 +1,11 @@
 <?php
 
-namespace Maklad\Permission\Test;
+namespace Cyberion\Mongodb\Permission\Test;
 
-use Maklad\Permission\Exceptions\GuardDoesNotMatch;
-use Maklad\Permission\Exceptions\PermissionDoesNotExist;
-use Maklad\Permission\Models\Permission;
-use Maklad\Permission\Models\Role;
+use Cyberion\Mongodb\Permission\Exceptions\GuardDoesNotMatch;
+use Cyberion\Mongodb\Permission\Exceptions\PermissionDoesNotExist;
+use Cyberion\Mongodb\Permission\Models\Permission;
+use Cyberion\Mongodb\Permission\Models\Role;
 use Monolog\Logger;
 use ReflectionException;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Maklad\Permission\Test;
+namespace Cyberion\Mongodb\Permission\Test;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Class TestHelper
- * @package Maklad\Permission\Test
+ * @package Cyberion\Mongodb\Permission\Test
  */
 class TestHelper {
     /**

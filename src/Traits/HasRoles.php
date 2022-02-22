@@ -1,18 +1,18 @@
 <?php
 
-namespace Maklad\Permission\Traits;
+namespace Cyberion\Mongodb\Permission\Traits;
 
 use Illuminate\Support\Collection;
 use Jenssegers\Mongodb\Eloquent\Builder;
 use Jenssegers\Mongodb\Eloquent\Model;
-use Maklad\Permission\Contracts\RoleInterface as Role;
-use Maklad\Permission\Helpers;
-use Maklad\Permission\PermissionRegistrar;
+use Cyberion\Mongodb\Permission\Contracts\RoleInterface as Role;
+use Cyberion\Mongodb\Permission\Helpers;
+use Cyberion\Mongodb\Permission\PermissionRegistrar;
 use ReflectionException;
 
 /**
  * Trait HasRoles
- * @package Maklad\Permission\Traits
+ * @package Cyberion\Mongodb\Permission\Traits
  */
 trait HasRoles {
     use HasPermissions;

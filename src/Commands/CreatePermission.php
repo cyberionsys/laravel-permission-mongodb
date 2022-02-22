@@ -1,12 +1,12 @@
 <?php
 
-namespace Maklad\Permission\Commands;
+namespace Cyberion\Mongodb\Permission\Commands;
 
 use Illuminate\Console\Command;
 
 /**
  * Class CreatePermission
- * @package Maklad\Permission\Commands
+ * @package Cyberion\Mongodb\Permission\Commands
  */
 class CreatePermission extends Command {
     protected $signature = 'permission:create-permission
