@@ -2,8 +2,7 @@ build:
   environment:
     php: 8.1.0
     selenium: true
-    apt_packages:
-      - php8.1-mongodb
+    mongo: true
   tests:
     override:
       -

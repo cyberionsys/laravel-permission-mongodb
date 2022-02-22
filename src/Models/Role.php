@@ -2,8 +2,6 @@
 
 namespace Cyberion\Mongodb\Permission\Models;
 
-use Jenssegers\Mongodb\Eloquent\Model;
-use Jenssegers\Mongodb\Relations\BelongsToMany;
 use Cyberion\Mongodb\Permission\Contracts\PermissionInterface;
 use Cyberion\Mongodb\Permission\Contracts\RoleInterface;
 use Cyberion\Mongodb\Permission\Exceptions\GuardDoesNotMatch;
@@ -13,6 +11,8 @@ use Cyberion\Mongodb\Permission\Guard;
 use Cyberion\Mongodb\Permission\Helpers;
 use Cyberion\Mongodb\Permission\Traits\HasPermissions;
 use Cyberion\Mongodb\Permission\Traits\RefreshesPermissionCache;
+use Jenssegers\Mongodb\Eloquent\Model;
+use Jenssegers\Mongodb\Relations\BelongsToMany;
 use ReflectionException;
 
 /**

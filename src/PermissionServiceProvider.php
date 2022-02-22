@@ -2,13 +2,13 @@
 
 namespace Cyberion\Mongodb\Permission;
 
+use Cyberion\Mongodb\Permission\Contracts\PermissionInterface as Permission;
+use Cyberion\Mongodb\Permission\Contracts\RoleInterface as Role;
+use Cyberion\Mongodb\Permission\Directives\PermissionDirectives;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
-use Cyberion\Mongodb\Permission\Contracts\PermissionInterface as Permission;
-use Cyberion\Mongodb\Permission\Contracts\RoleInterface as Role;
-use Cyberion\Mongodb\Permission\Directives\PermissionDirectives;
 
 /**
  * Class PermissionServiceProvider

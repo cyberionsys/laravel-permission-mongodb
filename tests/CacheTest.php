@@ -2,10 +2,10 @@
 
 namespace Cyberion\Mongodb\Permission\Test;
 
-use Illuminate\Support\Facades\DB;
 use Cyberion\Mongodb\Permission\Models\Permission;
 use Cyberion\Mongodb\Permission\Models\Role;
 use Cyberion\Mongodb\Permission\PermissionRegistrar;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @internal

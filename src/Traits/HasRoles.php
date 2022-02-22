@@ -2,12 +2,12 @@
 
 namespace Cyberion\Mongodb\Permission\Traits;
 
-use Illuminate\Support\Collection;
-use Jenssegers\Mongodb\Eloquent\Builder;
-use Jenssegers\Mongodb\Eloquent\Model;
 use Cyberion\Mongodb\Permission\Contracts\RoleInterface as Role;
 use Cyberion\Mongodb\Permission\Helpers;
 use Cyberion\Mongodb\Permission\PermissionRegistrar;
+use Illuminate\Support\Collection;
+use Jenssegers\Mongodb\Eloquent\Builder;
+use Jenssegers\Mongodb\Eloquent\Model;
 use ReflectionException;
 
 /**

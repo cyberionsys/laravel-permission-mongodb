@@ -2,12 +2,12 @@
 
 namespace Cyberion\Mongodb\Permission\Test;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Cyberion\Mongodb\Permission\Exceptions\UnauthorizedException;
 use Cyberion\Mongodb\Permission\Middlewares\PermissionMiddleware;
 use Cyberion\Mongodb\Permission\Middlewares\RoleMiddleware;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Monolog\Logger;
 
 /**

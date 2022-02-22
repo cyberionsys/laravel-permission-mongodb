@@ -2,12 +2,12 @@
 
 namespace Cyberion\Mongodb\Permission\Test;
 
+use Cyberion\Mongodb\Permission\Traits\HasRoles;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Jenssegers\Mongodb\Eloquent\Model;
-use Cyberion\Mongodb\Permission\Traits\HasRoles;
 
 /**
  * Class User

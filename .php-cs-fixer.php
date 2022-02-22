@@ -13,11 +13,6 @@ return $config->setFinder($finder)
         'multiline_whitespace_before_semicolons' => ['strategy' => 'no_multi_line'],
         'no_multiline_whitespace_around_double_arrow' => true,
         'no_whitespace_before_comma_in_array' => true,
-        'braces' => [
-            'allow_single_line_anonymous_class_with_empty_body' => true,
-            'allow_single_line_closure' => true,
-            'position_after_functions_and_oop_constructs' => 'same',
-        ],
         'no_blank_lines_after_class_opening' => false,
         'class_reference_name_casing' => true,
         'cast_spaces' => true,

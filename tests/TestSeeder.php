@@ -2,10 +2,10 @@
 
 namespace Cyberion\Mongodb\Permission\Test;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Foundation\Application;
 use Cyberion\Mongodb\Permission\Models\Permission;
 use Cyberion\Mongodb\Permission\Models\Role;
+use Illuminate\Database\Seeder;
+use Illuminate\Foundation\Application;
 
 class TestSeeder extends Seeder {
     private Application $app;

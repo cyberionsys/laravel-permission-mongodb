@@ -2,16 +2,16 @@
 
 namespace Cyberion\Mongodb\Permission\Traits;
 
-use Illuminate\Support\Collection;
-use Jenssegers\Mongodb\Eloquent\Builder;
-use Jenssegers\Mongodb\Eloquent\Model;
-use Jenssegers\Mongodb\Relations\BelongsToMany;
 use Cyberion\Mongodb\Permission\Contracts\PermissionInterface as Permission;
 use Cyberion\Mongodb\Permission\Exceptions\GuardDoesNotMatch;
 use Cyberion\Mongodb\Permission\Guard;
 use Cyberion\Mongodb\Permission\Helpers;
 use Cyberion\Mongodb\Permission\Models\Role;
 use Cyberion\Mongodb\Permission\PermissionRegistrar;
+use Illuminate\Support\Collection;
+use Jenssegers\Mongodb\Eloquent\Builder;
+use Jenssegers\Mongodb\Eloquent\Model;
+use Jenssegers\Mongodb\Relations\BelongsToMany;
 use ReflectionException;
 
 /**

@@ -2,8 +2,8 @@
 
 namespace Cyberion\Mongodb\Permission\Contracts;
 
-use Jenssegers\Mongodb\Relations\BelongsToMany;
 use Cyberion\Mongodb\Permission\Exceptions\RoleDoesNotExist;
+use Jenssegers\Mongodb\Relations\BelongsToMany;
 
 /**
  * Interface RoleInterface

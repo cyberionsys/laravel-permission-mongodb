@@ -3,11 +3,11 @@
 namespace Cyberion\Mongodb\Permission\Middlewares;
 
 use Closure;
-use Illuminate\Http\Request;
 use Cyberion\Mongodb\Permission\Exceptions\UnauthorizedException;
 use Cyberion\Mongodb\Permission\Exceptions\UnauthorizedPermission;
 use Cyberion\Mongodb\Permission\Exceptions\UserNotLoggedIn;
 use Cyberion\Mongodb\Permission\Helpers;
+use Illuminate\Http\Request;
 
 /**
  * Class PermissionMiddleware

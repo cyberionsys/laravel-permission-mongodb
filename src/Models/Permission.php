@@ -2,9 +2,6 @@
 
 namespace Cyberion\Mongodb\Permission\Models;
 
-use Illuminate\Support\Collection;
-use Jenssegers\Mongodb\Eloquent\Model;
-use Jenssegers\Mongodb\Relations\BelongsToMany;
 use Cyberion\Mongodb\Permission\Contracts\PermissionInterface;
 use Cyberion\Mongodb\Permission\Exceptions\PermissionAlreadyExists;
 use Cyberion\Mongodb\Permission\Exceptions\PermissionDoesNotExist;
@@ -13,6 +10,9 @@ use Cyberion\Mongodb\Permission\Helpers;
 use Cyberion\Mongodb\Permission\PermissionRegistrar;
 use Cyberion\Mongodb\Permission\Traits\HasRoles;
 use Cyberion\Mongodb\Permission\Traits\RefreshesPermissionCache;
+use Illuminate\Support\Collection;
+use Jenssegers\Mongodb\Eloquent\Model;
+use Jenssegers\Mongodb\Relations\BelongsToMany;
 use ReflectionException;
 
 /**

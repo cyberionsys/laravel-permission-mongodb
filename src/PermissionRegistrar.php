@@ -2,12 +2,12 @@
 
 namespace Cyberion\Mongodb\Permission;
 
+use Cyberion\Mongodb\Permission\Contracts\PermissionInterface as Permission;
 use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
-use Cyberion\Mongodb\Permission\Contracts\PermissionInterface as Permission;
 
 /**
  * Class PermissionRegistrar
