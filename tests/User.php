@@ -3,18 +3,17 @@
 namespace Maklad\Permission\Test;
 
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Jenssegers\Mongodb\Eloquent\Model;
 use Maklad\Permission\Traits\HasRoles;
-use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
 /**
  * Class User
  * @package Maklad\Permission\Test
  */
-class User extends Model implements AuthorizableContract, AuthenticatableContract
-{
+class User extends Model implements AuthorizableContract, AuthenticatableContract {
     use HasRoles, Authorizable, Authenticatable;
 
     /**
@@ -23,9 +22,7 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
      * @var array
      */
     protected $fillable = ['email'];
-
     public $timestamps = false;
-
     protected $collection = 'users';
     protected $connection = 'mongodb';
 }

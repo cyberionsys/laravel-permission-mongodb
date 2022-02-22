@@ -10,13 +10,15 @@ use Maklad\Permission\Middlewares\PermissionMiddleware;
 use Maklad\Permission\Middlewares\RoleMiddleware;
 use Monolog\Logger;
 
-class MiddlewareTest extends TestCase
-{
+/**
+ * @internal
+ * @coversNothing
+ */
+class MiddlewareTest extends TestCase {
     protected RoleMiddleware $roleMiddleware;
     protected PermissionMiddleware $permissionMiddleware;
 
-    public function setUp(): void
-    {
+    public function setUp(): void {
         parent::setUp();
 
         $this->roleMiddleware = new RoleMiddleware($this->app);
@@ -25,8 +27,7 @@ class MiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function a_guest_cannot_access_a_route_protected_by_the_role_middleware()
-    {
+    public function a_guest_cannot_access_a_route_protected_by_the_role_middleware() {
         $can_logs = [false, true];
 
         foreach ($can_logs as $can_log) {
@@ -46,8 +47,7 @@ class MiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_access_a_route_protected_by_role_middleware_if_have_this_role()
-    {
+    public function a_user_can_access_a_route_protected_by_role_middleware_if_have_this_role() {
         Auth::login($this->testUser);
 
         $this->testUser->assignRole('testRole');
@@ -62,8 +62,7 @@ class MiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_access_a_route_protected_by_this_role_middleware_if_have_one_of_the_roles()
-    {
+    public function a_user_can_access_a_route_protected_by_this_role_middleware_if_have_one_of_the_roles() {
         Auth::login($this->testUser);
 
         $this->testUser->assignRole('testRole');
@@ -86,8 +85,7 @@ class MiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function a_user_cannot_access_a_route_protected_by_the_role_middleware_if_have_a_different_role()
-    {
+    public function a_user_cannot_access_a_route_protected_by_the_role_middleware_if_have_a_different_role() {
         Auth::login($this->testUser);
 
         $this->testUser->assignRole(['testRole']);
@@ -115,8 +113,7 @@ class MiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function a_user_cannot_access_a_route_protected_by_role_middleware_if_have_not_roles()
-    {
+    public function a_user_cannot_access_a_route_protected_by_role_middleware_if_have_not_roles() {
         Auth::login($this->testUser);
 
         $can_logs = [false, true];
@@ -144,8 +141,7 @@ class MiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function a_user_cannot_access_a_route_protected_by_role_middleware_if_role_is_undefined()
-    {
+    public function a_user_cannot_access_a_route_protected_by_role_middleware_if_role_is_undefined() {
         Auth::login($this->testUser);
 
         $can_logs = [false, true];
@@ -172,8 +168,7 @@ class MiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function a_guest_cannot_access_a_route_protected_by_the_permission_middleware()
-    {
+    public function a_guest_cannot_access_a_route_protected_by_the_permission_middleware() {
         $can_logs = [false, true];
 
         foreach ($can_logs as $can_log) {
@@ -193,8 +188,7 @@ class MiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_access_a_route_protected_by_permission_middleware_if_have_this_permission()
-    {
+    public function a_user_can_access_a_route_protected_by_permission_middleware_if_have_this_permission() {
         Auth::login($this->testUser);
 
         $this->testUser->givePermissionTo('edit-articles');
@@ -209,8 +203,7 @@ class MiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_access_a_route_protected_by_this_permission_middleware_if_have_one_of_the_permissions()
-    {
+    public function a_user_can_access_a_route_protected_by_this_permission_middleware_if_have_one_of_the_permissions() {
         Auth::login($this->testUser);
 
         $this->testUser->givePermissionTo('edit-articles');
@@ -233,8 +226,7 @@ class MiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function a_user_cannot_access_a_route_protected_by_the_permission_middleware_if_have_a_different_permission()
-    {
+    public function a_user_cannot_access_a_route_protected_by_the_permission_middleware_if_have_a_different_permission() {
         Auth::login($this->testUser);
 
         $this->testUser->givePermissionTo('edit-articles');
@@ -263,8 +255,7 @@ class MiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function a_user_cannot_access_a_route_protected_by_permission_middleware_if_have_not_permissions()
-    {
+    public function a_user_cannot_access_a_route_protected_by_permission_middleware_if_have_not_permissions() {
         Auth::login($this->testUser);
 
         $can_logs = [false, true];
@@ -292,8 +283,7 @@ class MiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function the_required_roles_can_be_fetched_from_the_exception()
-    {
+    public function the_required_roles_can_be_fetched_from_the_exception() {
         Auth::login($this->testUser);
         $requiredRoles = [];
         try {
@@ -306,8 +296,7 @@ class MiddlewareTest extends TestCase
         $this->assertEquals(['testRole'], $requiredRoles);
     }
     /** @test */
-    public function the_required_permissions_can_be_fetched_from_the_exception()
-    {
+    public function the_required_permissions_can_be_fetched_from_the_exception() {
         Auth::login($this->testUser);
         $requiredPermissions = [];
         try {
@@ -320,8 +309,7 @@ class MiddlewareTest extends TestCase
         $this->assertEquals(['edit-articles'], $requiredPermissions);
     }
 
-    protected function runMiddleware($middleware, $parameter)
-    {
+    protected function runMiddleware($middleware, $parameter) {
         try {
             return $middleware->handle(new Request(), function () {
                 return (new Response())->setContent('<html></html>');

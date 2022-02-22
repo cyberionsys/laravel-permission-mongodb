@@ -3,24 +3,24 @@
 namespace Maklad\Permission;
 
 use Illuminate\Support\Collection;
+use ReflectionClass;
+use ReflectionException;
 
 /**
  * Class Guard
  * @package Maklad\Permission
  */
-class Guard
-{
+class Guard {
     /**
      * return collection of (guard_name) property if exist on class or object
      * otherwise will return collection of guards names that exists in config/auth.php.
      *
      * @param $model
      *
+     * @throws ReflectionException
      * @return Collection
-     * @throws \ReflectionException
      */
-    public function getNames($model) : Collection
-    {
+    public function getNames($model) : Collection {
         $guardName = null;
         $class = null;
 
@@ -30,7 +30,7 @@ class Guard
 
         if ($guardName === null) {
             $class = \is_object($model) ? \get_class($model) : $model;
-            $guardName = (new \ReflectionClass($class))->getDefaultProperties()['guard_name'] ?? null;
+            $guardName = (new ReflectionClass($class))->getDefaultProperties()['guard_name'] ?? null;
         }
 
         if ($guardName) {
@@ -55,11 +55,10 @@ class Guard
      *
      * @param $class
      *
+     * @throws ReflectionException
      * @return string
-     * @throws \ReflectionException
      */
-    public function getDefaultName($class): string
-    {
+    public function getDefaultName($class): string {
         $default = config('auth.defaults.guard');
         return $this->getNames($class)->first() ?: $default;
     }

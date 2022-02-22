@@ -1,17 +1,12 @@
----
-engines:
-  duplication:
-    enabled: true
-    config:
-      languages:
-      - php
+version: "2"
+
+plugins:
   phpcodesniffer:
     enabled: true
+    config:
+      standard: "PSR2"
   phpmd:
     enabled: true
-ratings:
-  paths:
-  - "**.blade.php"
-  - "**.php"
-exclude_paths:
-- tests/
+    config:
+      file_extensions: "php"
+

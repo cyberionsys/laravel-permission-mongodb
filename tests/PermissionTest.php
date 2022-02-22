@@ -6,11 +6,13 @@ use Maklad\Permission\Exceptions\PermissionAlreadyExists;
 use Maklad\Permission\Models\Permission;
 use Monolog\Logger;
 
-class PermissionTest extends TestCase
-{
+/**
+ * @internal
+ * @coversNothing
+ */
+class PermissionTest extends TestCase {
     /** @test */
-    public function it_throws_an_exception_when_the_permission_already_exists()
-    {
+    public function it_throws_an_exception_when_the_permission_already_exists() {
         $can_logs = [true, false];
 
         foreach ($can_logs as $can_log) {
@@ -29,22 +31,19 @@ class PermissionTest extends TestCase
     }
 
     /** @test */
-    public function it_belongs_to_a_guard()
-    {
+    public function it_belongs_to_a_guard() {
         $permission = \app(\config('permission.models.permission'))->create(['name' => 'can-edit', 'guard_name' => 'admin']);
 
         $this->assertEquals('admin', $permission->guard_name);
     }
 
     /** @test */
-    public function it_belongs_to_the_default_guard_by_default()
-    {
+    public function it_belongs_to_the_default_guard_by_default() {
         $this->assertEquals($this->app['config']->get('auth.defaults.guard'), $this->testUserPermission->guard_name);
     }
 
     /** @test */
-    public function it_has_user_models_of_the_right_class()
-    {
+    public function it_has_user_models_of_the_right_class() {
         $this->testAdmin->givePermissionTo($this->testAdminPermission);
 
         $this->testUser->givePermissionTo($this->testUserPermission);
@@ -58,8 +57,7 @@ class PermissionTest extends TestCase
     }
 
     /** @test */
-    public function it_creates_permission_object_with_findOrCreate_if_it_does_not_have_a_permission_object()
-    {
+    public function it_creates_permission_object_with_findOrCreate_if_it_does_not_have_a_permission_object() {
         $permission = app(Permission::class)->findOrCreate('another-permission');
         $this->assertFalse($this->testUserRole->hasPermissionTo($permission));
 

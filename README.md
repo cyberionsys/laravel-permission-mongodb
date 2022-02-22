@@ -5,12 +5,10 @@
 [![Build Status][ico-travis]][link-travis]
 [![Scrutinizer][ico-scrutinizer]][link-scrutinizer]
 [![Maintainability][ico-codeclimate-maintainability]][link-codeclimate-maintainability]
-[![Codacy Badge][ico-codacy]][link-codacy]
 [![StyleCI][ico-styleci]][link-styleci]
-[![Coverage Status][ico-coveralls]][link-coveralls]
 [![Total Downloads][ico-downloads]][link-packagist]
 
-This package allows you to manage user permissions and roles in a database.
+This package allows you to manage user permissions and roles in a MongoDB database using laravel 9.x and up.
 It is inspired from [laravel-permission][link-laravel-permission]. Same code same every thing but it is compatible with [laravel-mongodb][link-laravel-mongodb]
 
 Once installed you can do stuff like this:
@@ -27,7 +25,7 @@ $role->givePermissionTo('edit articles');
 
 If you're using multiple guards we've got you covered as well. Every guard will have its own set of permissions and roles that can be assigned to the guard's users. Read about it in the [using multiple guards](#using-multiple-guards) section of the readme.
 
-Because all permissions will be registered on [Laravel's gate](https://laravel.com/docs/5.5/authorization), you can test if a user has a permission with Laravel's default `can` function:
+Because all permissions will be registered on [Laravel's gate](https://laravel.com/docs/9.x/authorization), you can test if a user has a permission with Laravel's default `can` function:
 
 ```php
 $user->can('edit articles');
@@ -68,32 +66,20 @@ $user->can('edit articles');
 
  Laravel  | Package
 :---------|:----------
- 5.x      | 1.x or 2.x or 3.x
- 6.x      | 2.x or 3.x
- 7.x      | 3.x
- 8.x      | 3.1.x
- 9.x      | 4.x
+ 9.x      | 1.x
 
 ### Laravel
 
 You can install the package via composer:
 
-For laravel 9.x use
-
 ``` bash
 composer require mostafamaklad/laravel-permission-mongodb
-```
-
-For laravel 8.x and older use
-
-``` bash
-composer require mostafamaklad/laravel-permission-mongodb:"^3.1"
 ```
 
 You can publish [the migration](database/migrations/create_permission_collections.php.stub) with:
 
 ```bash
-php artisan vendor:publish --provider="Maklad\Permission\PermissionServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="Cyberion\Mongodb\Permission\PermissionServiceProvider" --tag="migrations"
 ```
 
 ```bash
@@ -103,7 +89,7 @@ php artisan migrate
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --provider="Maklad\Permission\PermissionServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Cyberion\Mongodb\Permission\PermissionServiceProvider" --tag="config"
 ```
 
 When published, the [`config/permission.php`](config/permission.php) config file contains:
@@ -119,10 +105,10 @@ return [
          * is often just the "Permission" model but you may use whatever you like.
          *
          * The model you want to use as a Permission model needs to implement the
-         * `Maklad\Permission\Contracts\Permission` contract.
+         * `Cyberion\Mongodb\Permission\Contracts\Permission` contract.
          */
 
-        'permission' => Maklad\Permission\Models\Permission::class,
+        'permission' => Cyberion\Mongodb\Permission\Models\Permission::class,
 
         /*
          * When using the "HasRoles" trait from this package, we need to know which
@@ -130,10 +116,10 @@ return [
          * is often just the "Role" model but you may use whatever you like.
          *
          * The model you want to use as a Role model needs to implement the
-         * `Maklad\Permission\Contracts\Role` contract.
+         * `Cyberion\Mongodb\Permission\Contracts\Role` contract.
          */
 
-        'role' => Maklad\Permission\Models\Role::class,
+        'role' => Cyberion\Mongodb\Permission\Models\Role::class,
 
     ],
 
@@ -182,44 +168,6 @@ return [
 ];
 ```
 
-### Lumen
-
-You can install the package via Composer:
-
-``` bash
-composer require mostafamaklad/laravel-permission-mongodb
-```
-
-Copy the required files:
-
-```bash
-cp vendor/mostafamaklad/laravel-permission-mongodb/config/permission.php config/permission.php
-cp vendor/mostafamaklad/laravel-permission-mongodb/database/migrations/create_permission_collections.php.stub database/migrations/2018_01_01_000000_create_permission_collections.php
-```
-
-You will also need to create another configuration file at `config/auth.php`. Get it on the Laravel repository or just run the following command:
-
-```bash
-curl -Ls https://raw.githubusercontent.com/laravel/lumen-framework/5.5/config/auth.php -o config/auth.php
-```
-
-Then, in `bootstrap/app.php`, register the middlewares:
-
-```php
-$app->routeMiddleware([
-    'auth'       => App\Http\Middleware\Authenticate::class,
-    'permission' => Maklad\Permission\Middlewares\PermissionMiddleware::class,
-    'role'       => Maklad\Permission\Middlewares\RoleMiddleware::class,
-]);
-```
-
-As well as the configuration and the service provider:
-
-```php
-$app->configure('permission');
-$app->register(Maklad\Permission\PermissionServiceProvider::class);
-```
-
 Now, run your migrations:
 
 ```bash
@@ -228,7 +176,7 @@ php artisan migrate
 
 ## Usage
 
-First, add the `Maklad\Permission\Traits\HasRoles` trait to your `User` model(s):
+First, add the `Cyberion\Mongodb\Permission\Traits\HasRoles` trait to your `User` model(s):
 
 ```php
 use Illuminate\Auth\Authenticatable;
@@ -236,7 +184,7 @@ use Jenssegers\Mongodb\Eloquent\Model as Model;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Maklad\Permission\Traits\HasRoles;
+use Cyberion\Mongodb\Permission\Traits\HasRoles;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
@@ -250,7 +198,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
 ```php
 use Jenssegers\Mongodb\Eloquent\Model as Model;
-use Maklad\Permission\Traits\HasRoles;
+use Cyberion\Mongodb\Permission\Traits\HasRoles;
 
 class Page extends Model
 {
@@ -266,8 +214,8 @@ This package allows for users to be associated with permissions and roles. Every
 A `Role` and a `Permission` are regular Moloquent models. They require a `name` and can be created like this:
 
 ```php
-use Maklad\Permission\Models\Role;
-use Maklad\Permission\Models\Permission;
+use Cyberion\Mongodb\Permission\Models\Role;
+use Cyberion\Mongodb\Permission\Models\Permission;
 
 $role = Role::create(['name' => 'writer']);
 $permission = Permission::create(['name' => 'edit articles']);
@@ -322,7 +270,7 @@ $users = User::role('writer')->get(); // Returns only users with the role 'write
 $users = User::permission('edit articles')->get(); // Returns only users with the permission 'edit articles'
 ```
 
-The scope can accept a string, a `\Maklad\Permission\Models\Role` object, a `\Maklad\Permission\Models\Permission` object or an `\Illuminate\Support\Collection` object.
+The scope can accept a string, a `\Cyberion\Mongodb\Permission\Models\Role` object, a `\Cyberion\Mongodb\Permission\Models\Permission` object or an `\Illuminate\Support\Collection` object.
 
 
 ### Using "direct" permissions
@@ -415,7 +363,7 @@ $user->hasAllRoles(Role::all());
 ```
 
 The `assignRole`, `hasRole`, `hasAnyRole`, `hasAllRoles`  and `removeRole` functions can accept a
- string, a `\Maklad\Permission\Models\Role` object or an `\Illuminate\Support\Collection` object.
+ string, a `\Cyberion\Mongodb\Permission\Models\Role` object or an `\Illuminate\Support\Collection` object.
 
 A permission can be given to a role:
 
@@ -436,7 +384,7 @@ $role->revokePermissionTo('edit articles');
 ```
 
 The `givePermissionTo` and `revokePermissionTo` functions can accept a
-string or a `Maklad\Permission\Models\Permission` object.
+string or a `Cyberion\Mongodb\Permission\Models\Permission` object.
 
 Permissions are inherited from roles automatically.
 Additionally, individual permissions can be assigned to the user too. 
@@ -471,7 +419,7 @@ $user->getPermissionsViaRoles();
 $user->getAllPermissions();
 ```
 
-All these responses are collections of `Maklad\Permission\Models\Permission` objects.
+All these responses are collections of `Cyberion\Mongodb\Permission\Models\Permission` objects.
 
 If we follow the previous example, the first response will be a collection with the `delete article` permission, the
 second will be a collection with the `edit article` permission and the third will contain both.
@@ -582,8 +530,8 @@ This package comes with `RoleMiddleware` and `PermissionMiddleware` middleware. 
 ```php
 protected $routeMiddleware = [
     // ...
-    'role' => \Maklad\Permission\Middlewares\RoleMiddleware::class,
-    'permission' => \Maklad\Permission\Middlewares\PermissionMiddleware::class,
+    'role' => \Cyberion\Mongodb\Permission\Middlewares\RoleMiddleware::class,
+    'permission' => \Cyberion\Mongodb\Permission\Middlewares\PermissionMiddleware::class,
 ];
 ```
 
@@ -616,7 +564,7 @@ You can add something in Laravel exception handler:
 ```php
 public function render($request, Exception $exception)
 {
-    if ($exception instanceof \Maklad\Permission\Exceptions\UnauthorizedException) {
+    if ($exception instanceof \Cyberion\Mongodb\Permission\Exceptions\UnauthorizedException) {
         // Code here ...
     }
 
@@ -658,7 +606,7 @@ public function setUp()
     parent::setUp();
 
     // now re-register all the roles and permissions
-    $this->app->make(\Maklad\Permission\PermissionRegistrar::class)->registerPermissions();
+    $this->app->make(\Cyberion\Mongodb\Permission\PermissionRegistrar::class)->registerPermissions();
 }
 ```
 
@@ -671,8 +619,8 @@ Two notes about Database Seeding:
 2. Here's a sample seeder, which clears the cache, creates permissions, and then assigns permissions to roles:
 ```php
 use Illuminate\Database\Seeder;
-use Maklad\Permission\Models\Role;
-use Maklad\Permission\Models\Permission;
+use Cyberion\Mongodb\Permission\Models\Role;
+use Cyberion\Mongodb\Permission\Models\Permission;
 
 class RolesAndPermissionsSeeder extends Seeder
 {
@@ -701,18 +649,18 @@ class RolesAndPermissionsSeeder extends Seeder
 ## Extending
 If you need to EXTEND the existing `Role` or `Permission` models note that:
 
-- Your `Role` model needs to extend the `Maklad\Permission\Models\Role` model
-- Your `Permission` model needs to extend the `Maklad\Permission\Models\Permission` model
+- Your `Role` model needs to extend the `Cyberion\Mongodb\Permission\Models\Role` model
+- Your `Permission` model needs to extend the `Cyberion\Mongodb\Permission\Models\Permission` model
 
 If you need to extend or replace the existing `Role` or `Permission` models you just need to
 keep the following things in mind:
 
-- Your `Role` model needs to implement the `Maklad\Permission\Contracts\Role` contract
-- Your `Permission` model needs to implement the `Maklad\Permission\Contracts\Permission` contract
+- Your `Role` model needs to implement the `Cyberion\Mongodb\Permission\Contracts\Role` contract
+- Your `Permission` model needs to implement the `Cyberion\Mongodb\Permission\Contracts\Permission` contract
 
 In BOTH cases, whether extending or replacing, you will need to specify your new models in the configuration. To do this you must update the `models.role` and `models.permission` values in the configuration file after publishing the configuration with this command:
   ```bash
-  php artisan vendor:publish --provider="Maklad\Permission\PermissionServiceProvider" --tag="config"
+  php artisan vendor:publish --provider="Cyberion\Mongodb\Permission\PermissionServiceProvider" --tag="config"
   ```
 
 ## Cache
@@ -770,7 +718,8 @@ If you discover any security-related issues, please email dev.mostafa.maklad@gma
 ## Credits
 
 - [Freek Van der Herten][link-freekmurze]
-- [Mostafa Maklad][link-author]
+- [Mostafa Maklad][link-maklad]
+- [Mamadou Lamine NIANG][link-author]
 - [All Contributors][link-contributors]
 
 ## License
@@ -783,32 +732,18 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-license]: https://img.shields.io/packagist/l/mostafamaklad/laravel-permission-mongodb.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/mostafamaklad/laravel-permission-mongodb.svg?style=flat-square
 
-[link-laravel-5.2]: https://laravel.com/docs/5.2
-[ico-laravel-5.2]: https://img.shields.io/badge/Laravel-5.2.x-brightgreen.svg?style=flat-square
-[link-laravel-5.3]: https://laravel.com/docs/5.3
-[ico-laravel-5.3]: https://img.shields.io/badge/Laravel-5.3.x-brightgreen.svg?style=flat-square
-[link-laravel-5.4]: https://laravel.com/docs/5.4
-[ico-laravel-5.4]: https://img.shields.io/badge/Laravel-5.4.x-brightgreen.svg?style=flat-square
-[link-laravel-5.5]: https://laravel.com/docs/5.5
-[ico-laravel-5.5]: https://img.shields.io/badge/Laravel-5.5.x-brightgreen.svg?style=flat-square
-[link-laravel-5.6]: https://laravel.com/docs/5.6
-[ico-laravel-5.6]: https://img.shields.io/badge/Laravel-5.6.x-brightgreen.svg?style=flat-square
-
 [link-travis]: https://travis-ci.org/mostafamaklad/laravel-permission-mongodb
 [ico-travis]: https://img.shields.io/travis/mostafamaklad/laravel-permission-mongodb/master.svg?style=flat-square
 
-[link-scrutinizer]: https://scrutinizer-ci.com/g/mostafamaklad/laravel-permission-mongodb
-[link-scrutinizer-build]: https://scrutinizer-ci.com/g/mostafamaklad/laravel-permission-mongodb/build-status/master
-[link-scrutinizer-coverage]: https://scrutinizer-ci.com/g/mostafamaklad/laravel-permission-mongodb/code-structure
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/g/mostafamaklad/laravel-permission-mongodb.svg?style=flat-square
-[ico-scrutinizer-build]: https://img.shields.io/scrutinizer/build/g/mostafamaklad/laravel-permission-mongodb.svg?style=flat-square
-[ico-scrutinizer-coverage]: https://img.shields.io/scrutinizer/coverage/g/mostafamaklad/laravel-permission-mongodb.svg?style=flat-square
+[link-scrutinizer]: https://scrutinizer-ci.com/g/cyberionsys/laravel-permission-mongodb
+[link-scrutinizer-build]: https://scrutinizer-ci.com/g/cyberionsys/laravel-permission-mongodb/build-status/master
+[link-scrutinizer-coverage]: https://scrutinizer-ci.com/g/cyberionsys/laravel-permission-mongodb/code-structure
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/g/cyberionsys/laravel-permission-mongodb.svg?style=flat-square
+[ico-scrutinizer-build]: https://img.shields.io/scrutinizer/build/g/cyberionsys/laravel-permission-mongodb.svg?style=flat-square
+[ico-scrutinizer-coverage]: https://img.shields.io/scrutinizer/coverage/g/cyberionsys/laravel-permission-mongodb.svg?style=flat-square
 
-[link-coveralls]: https://coveralls.io/github/mostafamaklad/laravel-permission-mongodb
-[ico-coveralls]: https://img.shields.io/coveralls/mostafamaklad/laravel-permission-mongodb.svg?style=flat-square
-
-[link-styleci]: https://styleci.io/repos/100894062
-[ico-styleci]: https://styleci.io/repos/100894062/shield?style=flat-square
+[link-styleci]: https://github.styleci.io/repos/462016185
+[ico-styleci]: https://github.styleci.io/repos/462016185/shield?style=flat-square
 
 [link-codeclimate]: https://codeclimate.com/github/mostafamaklad/laravel-permission-mongodb
 [link-codeclimate-coverage]: https://codeclimate.com/github/mostafamaklad/laravel-permission-mongodb/coverage

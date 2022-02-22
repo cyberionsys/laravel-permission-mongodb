@@ -10,8 +10,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  * Class TestHelper
  * @package Maklad\Permission\Test
  */
-class TestHelper
-{
+class TestHelper {
     /**
      * @param string $middleware
      * @param object $parameter

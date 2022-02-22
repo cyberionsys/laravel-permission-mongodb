@@ -1,1 +1,10 @@
+risky: false
+version: 8.0
 preset: psr2
+finder:
+  exclude:
+    - "tests"
+  name: "*.php"
+  not-name:
+    - "*.blade.php"
+    - "_ide_helper.php"

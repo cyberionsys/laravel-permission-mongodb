@@ -5,10 +5,12 @@ namespace Maklad\Permission\Test;
 use Artisan;
 use Maklad\Permission\Models\Role;
 
-class BladeTest extends TestCase
-{
-    public function setUp(): void
-    {
+/**
+ * @internal
+ * @coversNothing
+ */
+class BladeTest extends TestCase {
+    public function setUp(): void {
         parent::setUp();
 
         $roleModel = app(Role::class);
@@ -21,8 +23,7 @@ class BladeTest extends TestCase
     }
 
     /** @test */
-    public function all_blade_directives_will_evaluate_falsly_when_there_is_nobody_logged_in()
-    {
+    public function all_blade_directives_will_evaluate_falsly_when_there_is_nobody_logged_in() {
         $permission = 'edit-articles';
         $role = 'writer';
         $roles = [$role];
@@ -37,8 +38,7 @@ class BladeTest extends TestCase
     }
 
     /** @test */
-    public function all_blade_directives_will_evaluate_falsy_when_somebody_without_roles_or_permissions_is_logged_in()
-    {
+    public function all_blade_directives_will_evaluate_falsy_when_somebody_without_roles_or_permissions_is_logged_in() {
         $permission = 'edit-articles';
         $role = 'writer';
         $roles = 'writer';
@@ -53,8 +53,7 @@ class BladeTest extends TestCase
     }
 
     /** @test */
-    public function all_blade_directives_will_evaluate_falsy_when_somebody_with_another_guard_is_logged_in()
-    {
+    public function all_blade_directives_will_evaluate_falsy_when_somebody_with_another_guard_is_logged_in() {
         $permission = 'edit-articles';
         $role = 'writer';
         $roles = 'writer';
@@ -70,8 +69,7 @@ class BladeTest extends TestCase
     }
 
     /** @test */
-    public function the_can_directive_will_evaluate_true_when_the_logged_in_user_has_the_permission()
-    {
+    public function the_can_directive_will_evaluate_true_when_the_logged_in_user_has_the_permission() {
         $user = $this->getWriter();
 
         $user->givePermissionTo('edit-articles');
@@ -82,40 +80,35 @@ class BladeTest extends TestCase
     }
 
     /** @test */
-    public function the_role_directive_will_evaluate_true_when_the_logged_in_user_has_the_role()
-    {
+    public function the_role_directive_will_evaluate_true_when_the_logged_in_user_has_the_role() {
         auth()->setUser($this->getWriter());
 
         $this->assertEquals('has role', $this->renderView('role', ['role' => 'writer']));
     }
 
     /** @test */
-    public function the_role_directive_will_evaluate_true_when_the_logged_in_user_has_the_role_for_the_given_guard()
-    {
+    public function the_role_directive_will_evaluate_true_when_the_logged_in_user_has_the_role_for_the_given_guard() {
         auth('admin')->setUser($this->getSuperAdmin());
 
         $this->assertEquals('has role for guard', $this->renderView('guardRole', ['role' => 'super-admin', 'guard' => 'admin']));
     }
 
     /** @test */
-    public function the_hasrole_directive_will_evaluate_true_when_the_logged_in_user_has_the_role()
-    {
+    public function the_hasrole_directive_will_evaluate_true_when_the_logged_in_user_has_the_role() {
         auth()->setUser($this->getWriter());
 
         $this->assertEquals('has role', $this->renderView('hasRole', ['role' => 'writer']));
     }
 
     /** @test */
-    public function the_hasrole_directive_will_evaluate_true_when_the_logged_in_user_has_the_role_for_the_given_guard()
-    {
+    public function the_hasrole_directive_will_evaluate_true_when_the_logged_in_user_has_the_role_for_the_given_guard() {
         auth('admin')->setUser($this->getSuperAdmin());
 
         $this->assertEquals('has role', $this->renderView('guardHasRole', ['role' => 'super-admin', 'guard' => 'admin']));
     }
 
     /** @test */
-    public function the_hasanyrole_directive_will_evaluate_false_when_the_logged_in_user_does_not_have_any_of_the_required_roles()
-    {
+    public function the_hasanyrole_directive_will_evaluate_false_when_the_logged_in_user_does_not_have_any_of_the_required_roles() {
         $roles = ['writer', 'intern'];
 
         auth()->setUser($this->getMember());
@@ -125,8 +118,7 @@ class BladeTest extends TestCase
     }
 
     /** @test */
-    public function the_hasanyrole_directive_will_evaluate_true_when_the_logged_in_user_does_have_some_of_the_required_roles()
-    {
+    public function the_hasanyrole_directive_will_evaluate_true_when_the_logged_in_user_does_have_some_of_the_required_roles() {
         $roles = ['member', 'writer', 'intern'];
 
         auth()->setUser($this->getMember());
@@ -136,8 +128,7 @@ class BladeTest extends TestCase
     }
 
     /** @test */
-    public function the_hasanyrole_directive_will_evaluate_true_when_the_logged_in_user_does_have_some_of_the_required_roles_for_the_given_guard()
-    {
+    public function the_hasanyrole_directive_will_evaluate_true_when_the_logged_in_user_does_have_some_of_the_required_roles_for_the_given_guard() {
         $roles = ['super-admin', 'moderator'];
         $guard = 'admin';
 
@@ -147,8 +138,7 @@ class BladeTest extends TestCase
     }
 
     /** @test */
-    public function the_hasanyrole_directive_will_evaluate_true_when_the_logged_in_user_does_have_some_of_the_required_roles_in_pipe()
-    {
+    public function the_hasanyrole_directive_will_evaluate_true_when_the_logged_in_user_does_have_some_of_the_required_roles_in_pipe() {
         $guard = 'admin';
 
         auth('admin')->setUser($this->getSuperAdmin());
@@ -157,8 +147,7 @@ class BladeTest extends TestCase
     }
 
     /** @test */
-    public function the_hasanyrole_directive_will_evaluate_false_when_the_logged_in_user_doesnt_have_some_of_the_required_roles_in_pipe()
-    {
+    public function the_hasanyrole_directive_will_evaluate_false_when_the_logged_in_user_doesnt_have_some_of_the_required_roles_in_pipe() {
         $guard = '';
 
         auth('admin')->setUser($this->getMember());
@@ -167,8 +156,7 @@ class BladeTest extends TestCase
     }
 
     /** @test */
-    public function the_hasallroles_directive_will_evaluate_false_when_the_logged_in_user_does_not_have_all_required_roles()
-    {
+    public function the_hasallroles_directive_will_evaluate_false_when_the_logged_in_user_does_not_have_all_required_roles() {
         $roles = ['member', 'writer'];
 
         auth()->setUser($this->getMember());
@@ -178,8 +166,7 @@ class BladeTest extends TestCase
     }
 
     /** @test */
-    public function the_hasallroles_directive_will_evaluate_true_when_the_logged_in_user_does_have_all_required_roles()
-    {
+    public function the_hasallroles_directive_will_evaluate_true_when_the_logged_in_user_does_have_all_required_roles() {
         $roles = ['member', 'writer'];
 
         $user = $this->getMember();
@@ -195,8 +182,7 @@ class BladeTest extends TestCase
     }
 
     /** @test */
-    public function the_hasallroles_directive_will_evaluate_true_when_the_logged_in_user_does_have_all_required_roles_for_the_given_guard()
-    {
+    public function the_hasallroles_directive_will_evaluate_true_when_the_logged_in_user_does_have_all_required_roles_for_the_given_guard() {
         $roles = ['super-admin', 'moderator'];
         $guard = 'admin';
 
@@ -212,8 +198,7 @@ class BladeTest extends TestCase
     }
 
     /** @test */
-    public function the_hasallroles_directive_will_evaluate_true_when_the_logged_in_user_does_have_all_required_roles_in_pipe()
-    {
+    public function the_hasallroles_directive_will_evaluate_true_when_the_logged_in_user_does_have_all_required_roles_in_pipe() {
         $guard = 'admin';
 
         $admin = $this->getSuperAdmin();
@@ -228,8 +213,7 @@ class BladeTest extends TestCase
     }
 
     /** @test */
-    public function the_hasallroles_directive_will_evaluate_false_when_the_logged_in_user_doesnt_have_all_required_roles_in_pipe()
-    {
+    public function the_hasallroles_directive_will_evaluate_false_when_the_logged_in_user_doesnt_have_all_required_roles_in_pipe() {
         $guard = '';
         $user = $this->getMember();
 
@@ -242,8 +226,7 @@ class BladeTest extends TestCase
         $this->assertEquals('does not have all of the given roles', $this->renderView('guardHasAllRolesPipe', compact('guard')));
     }
 
-    protected function getWriter()
-    {
+    protected function getWriter() {
         $this->testUser->assignRole('writer');
 
         $this->refreshTestUser();
@@ -251,8 +234,7 @@ class BladeTest extends TestCase
         return $this->testUser;
     }
 
-    protected function getMember()
-    {
+    protected function getMember() {
         $this->testUser->assignRole('member');
 
         $this->refreshTestUser();
@@ -260,8 +242,7 @@ class BladeTest extends TestCase
         return $this->testUser;
     }
 
-    protected function getSuperAdmin()
-    {
+    protected function getSuperAdmin() {
         $this->testAdmin->assignRole('super-admin');
 
         $this->refreshTestAdmin();
@@ -269,8 +250,7 @@ class BladeTest extends TestCase
         return $this->testAdmin;
     }
 
-    protected function renderView($view, $parameters)
-    {
+    protected function renderView($view, $parameters) {
         Artisan::call('view:clear');
 
         if (is_string($view)) {

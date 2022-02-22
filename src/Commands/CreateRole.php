@@ -3,23 +3,19 @@
 namespace Maklad\Permission\Commands;
 
 use Illuminate\Console\Command;
-use Maklad\Permission\Contracts\RoleInterface as Role;
 
 /**
  * Class CreateRole
  * @package Maklad\Permission\Commands
  */
-class CreateRole extends Command
-{
+class CreateRole extends Command {
     protected $signature = 'permission:create-role
         {name : The name of the role}
         {guard? : The name of the guard}
         {--permission=* : The name of the permission}';
-
     protected $description = 'Create a role';
 
-    public function handle(): void
-    {
+    public function handle(): void {
         $roleClass       = \app(\config('permission.models.role'));
 
         $name        = $this->argument('name');

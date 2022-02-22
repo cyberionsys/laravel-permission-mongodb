@@ -12,18 +12,16 @@ use Maklad\Permission\Helpers;
  * Class RoleMiddleware
  * @package Maklad\Permission\Middlewares
  */
-class RoleMiddleware
-{
+class RoleMiddleware {
     /**
      * @param Request $request
      * @param Closure $next
      * @param array|string $role
      *
-     * @return mixed
      * @throws \Maklad\Permission\Exceptions\UnauthorizedException
+     * @return mixed
      */
-    public function handle(Request $request, Closure $next, array|string $role): mixed
-    {
+    public function handle(Request $request, Closure $next, array|string $role): mixed {
         if (app('auth')->guest()) {
             $helpers = new Helpers();
             throw new UserNotLoggedIn(403, $helpers->getUserNotLoggedINMessage());

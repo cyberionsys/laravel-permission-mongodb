@@ -10,42 +10,31 @@ use Maklad\Permission\Models\Permission;
 use Maklad\Permission\Models\Role;
 use Maklad\Permission\PermissionRegistrar;
 use Maklad\Permission\PermissionServiceProvider;
-use Monolog\Handler\StreamHandler;
 use Monolog\Handler\TestHandler;
 use Orchestra\Testbench\TestCase as Orchestra;
 
-abstract class TestCase extends Orchestra
-{
+abstract class TestCase extends Orchestra {
     use DatabaseMigrations;
     protected Helpers $helpers;
-
     protected string $seeder = TestSeeder::class;
 
     /**
      * Flush the database after each test function
      */
-    public function tearDown(): void
-    {
+    public function tearDown(): void {
         User::truncate();
         Admin::truncate();
         $this->app[Role::class]::truncate();
         $this->app[Permission::class]::truncate();
     }
-
     protected User $testUser;
-
     protected Admin $testAdmin;
-
     protected Role $testUserRole;
-
     protected Role $testAdminRole;
-
     protected Permission $testUserPermission;
-
     protected Permission $testAdminPermission;
 
-    public function setUp(): void
-    {
+    public function setUp(): void {
         parent::setUp();
 
         // $this->setUpDatabase($this->app);
@@ -82,8 +71,7 @@ abstract class TestCase extends Orchestra
      *
      * @param Application $app
      */
-    protected function getEnvironmentSetUp($app)
-    {
+    protected function getEnvironmentSetUp($app) {
         $app['config']->set('database.default', 'mongodb');
         $app['config']->set('database.connections.mongodb', [
             'host' => 'localhost',
@@ -110,8 +98,7 @@ abstract class TestCase extends Orchestra
      *
      * @return bool
      */
-    protected function reloadPermissions()
-    {
+    protected function reloadPermissions() {
         \app(PermissionRegistrar::class)->forgetCachedPermissions();
 
         return \app(PermissionRegistrar::class)->registerPermissions();
@@ -120,33 +107,28 @@ abstract class TestCase extends Orchestra
     /**
      * Refresh the testUser.
      */
-    public function refreshTestUser()
-    {
+    public function refreshTestUser() {
         $this->testUser = $this->testUser->fresh();
     }
 
     /**
      * Refresh the testAdmin.
      */
-    public function refreshTestAdmin()
-    {
+    public function refreshTestAdmin() {
         $this->testAdmin = $this->testAdmin->fresh();
     }
 
-    protected function clearLogTestHandler()
-    {
+    protected function clearLogTestHandler() {
         \collect($this->app['log']->getLogger()->getHandlers())->filter(function ($handler) {
             return $handler instanceof TestHandler;
         })->first()->clear();
     }
 
-    protected function assertNotLogged($message, $level)
-    {
+    protected function assertNotLogged($message, $level) {
         $this->assertFalse($this->hasLog($message, $level));
     }
 
-    protected function assertLogged($message, $level)
-    {
+    protected function assertLogged($message, $level) {
         $this->assertTrue($this->hasLog($message, $level));
     }
 
@@ -167,9 +149,9 @@ abstract class TestCase extends Orchestra
 
     /**
      * @param $message
+     * @param mixed $level
      */
-    protected function assertLogMessage($message, $level)
-    {
+    protected function assertLogMessage($message, $level) {
         if (\config('permission.log_registration_exception')) {
             $this->assertLogged($message, $level);
         } else {
@@ -179,9 +161,9 @@ abstract class TestCase extends Orchestra
 
     /**
      * @param $message
+     * @param mixed $role_permission
      */
-    protected function assertShowPermission($message, $role_permission)
-    {
+    protected function assertShowPermission($message, $role_permission) {
         if (\config('permission.display_permission_in_exception')) {
             $this->assertContains($role_permission, $message);
         } else {
@@ -192,8 +174,7 @@ abstract class TestCase extends Orchestra
     /**
      * Refresh the testUserPermission.
      */
-    public function refreshTestUserPermission()
-    {
+    public function refreshTestUserPermission() {
         $this->testUserPermission = $this->testUserPermission->fresh();
     }
 }

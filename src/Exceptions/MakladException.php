@@ -9,8 +9,7 @@ use Throwable;
  * Class MakladException
  * @package Maklad\Permission\Exceptions
  */
-class MakladException extends InvalidArgumentException
-{
+class MakladException extends InvalidArgumentException {
     /**
      * MakladException constructor.
      *
@@ -18,8 +17,7 @@ class MakladException extends InvalidArgumentException
      * @param int $code
      * @param Throwable|null $previous
      */
-    public function __construct(string $message = null, int $code = 0, Throwable $previous = null)
-    {
+    public function __construct(string $message = null, int $code = 0, Throwable $previous = null) {
         parent::__construct($message, $code, $previous);
 
         if (\config('permission.log_registration_exception')) {

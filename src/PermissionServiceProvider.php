@@ -2,21 +2,20 @@
 
 namespace Maklad\Permission;
 
+use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
 use Maklad\Permission\Contracts\PermissionInterface as Permission;
 use Maklad\Permission\Contracts\RoleInterface as Role;
 use Maklad\Permission\Directives\PermissionDirectives;
-use Illuminate\Support\Facades\DB;
 
 /**
  * Class PermissionServiceProvider
  * @package Maklad\Permission
  */
-class PermissionServiceProvider extends ServiceProvider
-{
-    public function boot()
-    {
+class PermissionServiceProvider extends ServiceProvider {
+    public function boot() {
         $helpers = new Helpers();
         if ($helpers->isNotLumen()) {
             $this->publishes([
@@ -44,12 +43,11 @@ class PermissionServiceProvider extends ServiceProvider
         try {
             DB::connection()->getPdo();
             app(PermissionRegistrar::class)->registerPermissions();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
         }
     }
 
-    public function register()
-    {
+    public function register() {
         $helpers = new Helpers();
         if ($helpers->isNotLumen()) {
             $this->mergeConfigFrom(
@@ -61,16 +59,14 @@ class PermissionServiceProvider extends ServiceProvider
         $this->registerBladeExtensions();
     }
 
-    protected function registerModelBindings()
-    {
+    protected function registerModelBindings() {
         $config = $this->app->config['permission.models'];
 
         $this->app->bind(Permission::class, $config['permission']);
         $this->app->bind(Role::class, $config['role']);
     }
 
-    protected function registerBladeExtensions()
-    {
+    protected function registerBladeExtensions() {
         $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
             $permissionDirectives = new PermissionDirectives($bladeCompiler);
 

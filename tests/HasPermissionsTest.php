@@ -6,14 +6,16 @@ use Maklad\Permission\Exceptions\GuardDoesNotMatch;
 use Maklad\Permission\Exceptions\PermissionDoesNotExist;
 use Maklad\Permission\Models\Permission;
 use Maklad\Permission\Models\Role;
-use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use ReflectionException;
 
-class HasPermissionsTest extends TestCase
-{
+/**
+ * @internal
+ * @coversNothing
+ */
+class HasPermissionsTest extends TestCase {
     /** @test */
-    public function it_can_assign_a_permission_to_a_user()
-    {
+    public function it_can_assign_a_permission_to_a_user() {
         $this->testUser->givePermissionTo($this->testUserPermission);
 
         $this->refreshTestUser();
@@ -22,8 +24,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_an_exception_when_assigning_a_permission_that_does_not_exist()
-    {
+    public function it_throws_an_exception_when_assigning_a_permission_that_does_not_exist() {
         $can_logs = [true, false];
 
         foreach ($can_logs as $can_log) {
@@ -41,8 +42,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_an_exception_when_assigning_a_permission_to_a_user_from_a_different_guard()
-    {
+    public function it_throws_an_exception_when_assigning_a_permission_to_a_user_from_a_different_guard() {
         $can_logs = [true, false];
 
         foreach ($can_logs as $can_log) {
@@ -60,8 +60,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_revoke_a_permission_from_a_user()
-    {
+    public function it_can_revoke_a_permission_from_a_user() {
         $this->testUser->givePermissionTo($this->testUserPermission);
 
         $this->refreshTestUser();
@@ -78,8 +77,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_scope_users_using_a_string()
-    {
+    public function it_can_scope_users_using_a_string() {
         $user1 = User::create(['email' => 'user1@test.com']);
         $user2 = User::create(['email' => 'user2@test.com']);
         $user1->givePermissionTo(['edit-articles', 'edit-news']);
@@ -94,8 +92,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_scope_users_using_an_array()
-    {
+    public function it_can_scope_users_using_an_array() {
         $user1 = User::create(['email' => 'user1@test.com']);
         $user2 = User::create(['email' => 'user2@test.com']);
         $user1->givePermissionTo(['edit-articles', 'edit-news']);
@@ -109,8 +106,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_scope_users_using_a_collection()
-    {
+    public function it_can_scope_users_using_a_collection() {
         $user1 = User::create(['email' => 'user1@test.com']);
         $user2 = User::create(['email' => 'user2@test.com']);
         $user1->givePermissionTo(['edit-articles', 'edit-news']);
@@ -125,8 +121,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_scope_users_using_an_object()
-    {
+    public function it_can_scope_users_using_an_object() {
         $user1 = User::create(['email' => 'user1@test.com']);
         $user1->givePermissionTo($this->testUserPermission->name);
         $scopedUsers1 = User::permission($this->testUserPermission)->get();
@@ -138,8 +133,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_scope_users_without_permissions_only_role()
-    {
+    public function it_can_scope_users_without_permissions_only_role() {
         $user1 = User::create(['email' => 'user1@test.com']);
         $user2 = User::create(['email' => 'user2@test.com']);
         $this->testUserRole->givePermissionTo('edit-articles');
@@ -150,8 +144,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_scope_users_without_permissions_only_permission()
-    {
+    public function it_can_scope_users_without_permissions_only_permission() {
         $user1 = User::create(['email' => 'user1@test.com']);
         $user2 = User::create(['email' => 'user2@test.com']);
         $user1->givePermissionTo(['edit-news']);
@@ -161,8 +154,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_an_exception_when_trying_to_scope_a_permission_from_another_guard()
-    {
+    public function it_throws_an_exception_when_trying_to_scope_a_permission_from_another_guard() {
         $this->expectException(PermissionDoesNotExist::class);
         User::permission('testAdminPermission')->get();
         $this->expectException(GuardDoesNotMatch::class);
@@ -170,8 +162,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_doesnt_detach_permissions_when_soft_deleting()
-    {
+    public function it_doesnt_detach_permissions_when_soft_deleting() {
         $user = SoftDeletingUser::create(['email' => 'test@example.com']);
         $user->givePermissionTo(['edit-news']);
         $user->delete();
@@ -180,8 +171,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_give_and_revoke_multiple_permissions()
-    {
+    public function it_can_give_and_revoke_multiple_permissions() {
         $this->testUserRole->givePermissionTo(['edit-articles', 'edit-news']);
         $this->assertEquals(2, $this->testUserRole->permissions()->count());
         $this->testUserRole->revokePermissionTo(['edit-articles', 'edit-news']);
@@ -189,8 +179,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_retrieve_permission_names()
-    {
+    public function it_can_retrieve_permission_names() {
         $this->testUser->givePermissionTo('edit-articles', 'edit-news');
 
         $this->assertEquals(
@@ -200,8 +189,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_that_the_user_has_any_of_the_permissions_directly_using_an_array()
-    {
+    public function it_can_determine_that_the_user_has_any_of_the_permissions_directly_using_an_array() {
         $this->assertFalse($this->testUser->hasAnyPermission(['edit-articles']));
 
         $this->testUser->givePermissionTo('edit-articles');
@@ -220,8 +208,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_that_the_user_has_any_of_the_permissions_via_role()
-    {
+    public function it_can_determine_that_the_user_has_any_of_the_permissions_via_role() {
         $this->testUserRole->givePermissionTo('edit-articles');
 
         $this->testUser->assignRole('testRole');
@@ -230,8 +217,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_that_user_has_direct_permission()
-    {
+    public function it_can_determine_that_user_has_direct_permission() {
         $this->testUser->givePermissionTo('edit-articles');
         $this->testUser->assignRole('testRole');
         $this->testUserRole->givePermissionTo('edit-news');
@@ -249,8 +235,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_list_all_the_permissions_via_his_roles()
-    {
+    public function it_can_list_all_the_permissions_via_his_roles() {
         $roleModel = app(Role::class);
         $roleModel->findByName('testRole2')->givePermissionTo('edit-news');
 
@@ -266,8 +251,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_list_all_the_coupled_permissions_both_directly_and_via_roles()
-    {
+    public function it_can_list_all_the_coupled_permissions_both_directly_and_via_roles() {
         $this->testUser->givePermissionTo('edit-news');
 
         $this->testUserRole->givePermissionTo('edit-articles');
@@ -280,8 +264,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_work_with_a_user_that_does_not_have_any_permissions_at_all()
-    {
+    public function it_can_work_with_a_user_that_does_not_have_any_permissions_at_all() {
         // TODO try to use object without saving it to database
         $user = User::create(['email' => 'new@user.com']);
 
@@ -289,8 +272,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_that_the_user_has_any_of_the_permissions_directly()
-    {
+    public function it_can_determine_that_the_user_has_any_of_the_permissions_directly() {
         $this->assertFalse($this->testUser->hasAnyPermission('edit-articles'));
 
         $this->testUser->givePermissionTo('edit-articles');
@@ -309,14 +291,12 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_that_the_user_does_not_have_a_permission()
-    {
+    public function it_can_determine_that_the_user_does_not_have_a_permission() {
         $this->assertFalse($this->testUser->hasPermissionTo('edit-articles'));
     }
 
     /** @test */
-    public function it_throws_an_exception_when_the_permission_does_not_exist()
-    {
+    public function it_throws_an_exception_when_the_permission_does_not_exist() {
         $can_logs = [true, false];
 
         foreach ($can_logs as $can_log) {
@@ -334,8 +314,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_an_exception_when_the_permission_does_not_exist_for_this_guard()
-    {
+    public function it_throws_an_exception_when_the_permission_does_not_exist_for_this_guard() {
         $can_logs = [true, false];
 
         foreach ($can_logs as $can_log) {
@@ -353,8 +332,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_assign_and_remove_a_role_on_a_permission()
-    {
+    public function it_can_assign_and_remove_a_role_on_a_permission() {
         $this->testUserPermission->assignRole('testRole');
 
         $this->assertTrue($this->testUserPermission->hasRole('testRole'));
@@ -367,8 +345,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_sync_roles_from_a_string_on_a_permission()
-    {
+    public function it_can_sync_roles_from_a_string_on_a_permission() {
         $this->testUserPermission->assignRole('testRole');
 
         $this->testUserPermission->syncRoles('testRole2');
@@ -379,10 +356,9 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
-    public function it_can_determine_that_a_user_has_all_of_the_given_roles()
-    {
+    public function it_can_determine_that_a_user_has_all_of_the_given_roles() {
         $permissionModel = app(Permission::class);
 
         $this->assertFalse($this->testUser->hasAllPermissions('edit-news'));
@@ -403,8 +379,7 @@ class HasPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_that_the_user_has_all_of_the_permissions_directly()
-    {
+    public function it_can_determine_that_the_user_has_all_of_the_permissions_directly() {
         $this->testUser->givePermissionTo('edit-articles', 'edit-news');
         $this->refreshTestUser();
         $this->assertTrue($this->testUser->hasAllPermissions('edit-articles', 'edit-news'));
@@ -413,8 +388,7 @@ class HasPermissionsTest extends TestCase
         $this->assertFalse($this->testUser->hasAllPermissions('edit-articles', 'edit-news'));
     }
     /** @test */
-    public function it_can_determine_that_the_user_has_all_of_the_permissions_directly_using_an_array()
-    {
+    public function it_can_determine_that_the_user_has_all_of_the_permissions_directly_using_an_array() {
         $this->assertFalse($this->testUser->hasAllPermissions(['edit-articles', 'edit-news']));
         $this->testUser->revokePermissionTo('edit-articles');
         $this->refreshTestUser();
@@ -425,16 +399,14 @@ class HasPermissionsTest extends TestCase
         $this->assertFalse($this->testUser->hasAllPermissions(['edit-articles', 'edit-news']));
     }
     /** @test */
-    public function it_can_determine_that_the_user_has_all_of_the_permissions_via_role()
-    {
+    public function it_can_determine_that_the_user_has_all_of_the_permissions_via_role() {
         $this->testUserRole->givePermissionTo('edit-articles', 'edit-news');
         $this->testUser->assignRole('testRole');
         $this->assertTrue($this->testUser->hasAllPermissions('edit-articles', 'edit-news'));
     }
 
     /** @test */
-    public function a_model_that_uses_hasPermissions_trait_should_not_have_users_method()
-    {
+    public function a_model_that_uses_hasPermissions_trait_should_not_have_users_method() {
         $this->assertFalse(method_exists($this->testUser, 'users'));
     }
 }

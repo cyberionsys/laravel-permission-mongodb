@@ -9,8 +9,7 @@ use Maklad\Permission\Exceptions\RoleDoesNotExist;
  * Interface RoleInterface
  * @package Maklad\Permission\Contracts
  */
-interface RoleInterface
-{
+interface RoleInterface {
     /**
      * A role may be given various permissions.
      * @return BelongsToMany
@@ -23,9 +22,9 @@ interface RoleInterface
      * @param string $name
      * @param string|null $guardName
      *
+     * @throws RoleDoesNotExist
      * @return RoleInterface
      *
-     * @throws RoleDoesNotExist
      */
     public static function findByName(string $name, ?string $guardName): RoleInterface;
 

@@ -9,8 +9,7 @@ use Maklad\Permission\Exceptions\PermissionDoesNotExist;
  * Interface PermissionInterface
  * @package Maklad\Permission\Contracts
  */
-interface PermissionInterface
-{
+interface PermissionInterface {
     /**
      * A permission can be applied to roles.
      * @return BelongsToMany
